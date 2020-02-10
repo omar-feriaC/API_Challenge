@@ -8,9 +8,9 @@ namespace BaseFramework.Model
     public class User
     {
         public UInt64 _id;
-        public String UserName;
-        public String Password;
-        public String Authorization;
+        public String Name;
+        public String Salary;
+        public String Age;
     }
     public class Error
     {

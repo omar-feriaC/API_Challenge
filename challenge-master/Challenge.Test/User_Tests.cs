@@ -17,51 +17,29 @@ namespace Challenge.Tests
         private readonly String baseUrl = ConfigurationManager.AppSettings["baseUrl"];
 
         [TestMethod]
-        public void CreateUser_Positive()
+        public void API_GET_Test()
         {
-            String endpoint = "/api/v1/QATest/CreateUser/"; 
-            User user = new User();
-            user.UserName = ""; //We should probably make this random somehow so that this test will always pass. If the user name stays the same, this test will only work once.
-            user.Password = "";
+            String endpoint = "/api/v1/employee/2"; 
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
             //We should probably do some more assertions here on the response to check that our GET request was successful.
         }
-        public void CreateUser_UserName_Less_Than_8_Negative()
+
+
+        [TestMethod]
+        public void API_POST_Test()
         {
-            String endpoint = "/api/v1/QATest/CreateUser/";
+            String endpoint = "/api/v1/create/";
             User user = new User();
-            user.UserName = "tooshrt";
-            user.Password = ConfigurationManager.AppSettings["Password"];
+            user.Name = "";
+            user.Salary = "";
+            user.Age = "";
             Rest rest = new Rest(baseUrl);
-            HTTP_RESPONSE resp = rest.GET(endpoint);
-            //Need some assertions here to check the response.
-        }
-        public void CreateUser_Password_Less_Than_8_Negative()
-        {
-            String endpoint = "/api/v1/QATest/CreateUser/";
-            User user = new User();
-            user.UserName = "tooshrt";
-            user.Password = ConfigurationManager.AppSettings["Password"];
-            Rest rest = new Rest(baseUrl);
-            HTTP_RESPONSE resp = rest.GET(endpoint);
+            HTTP_RESPONSE resp = rest.POST(endpoint, "");
             //Need some assertions here to check the response.
         }
 
-        [TestMethod]
-        public void GetUserAuth_Positive()
-        {
-            String endpoint = "/api/v1/QATest/oauth/token/";
-            //Need the rest of this test to be completed.
-        }
-
-        [TestMethod]
-        public void GetUserAuth_Negative()
-        {
-            String endpoint = "/api/v1/QATest/oauth/token/";
-            //Need the rest of this test to be completed.
-        }
     }
     
 }
