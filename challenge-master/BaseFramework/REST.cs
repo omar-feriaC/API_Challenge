@@ -69,6 +69,7 @@ namespace BaseFramework.Rest
                 if (!String.IsNullOrEmpty(body))
                 {
                     //We should probably add our body to the request's content here
+                    
                 }
             }
 
