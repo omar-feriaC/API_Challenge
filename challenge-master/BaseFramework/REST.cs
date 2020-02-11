@@ -58,7 +58,7 @@ namespace BaseFramework.Rest
 
             byte[] data = null;
             request.Method = requestType;
-            request.ContentType = "application/json";
+            request.ContentType = "application/json;";
             request.KeepAlive = false;
 
             foreach (KeyValuePair<String, String> kvp in headers)
@@ -66,14 +66,28 @@ namespace BaseFramework.Rest
 
             if (!String.IsNullOrEmpty(body))
             {
-               //We should probably add our body to the request's content here
+                data = ASCIIEncoding.ASCII.GetBytes(body);
+                request.ContentLength = data.Length;
+
+                using (var streamWriter = request.GetRequestStream())
+                {
+                    streamWriter.Write(data, 0, data.Length);
+                    streamWriter.Close();
+                }
             }
+
+
+
+
+          
 
             responseTimer.Start();
             try
             {
                 using (HttpWebResponse webResponse = (HttpWebResponse)request.GetResponse())
                     response = getResponseDetails(webResponse);
+                    
+
 
                 response.Time = responseTimer.Elapsed;
             }
@@ -96,8 +110,19 @@ namespace BaseFramework.Rest
         {
             HTTP_RESPONSE output = new HTTP_RESPONSE();
 
-            //We should probably pull the Http status code and message body out of the webresposne in here
+            //We should probably pull the Http status code and message body out of the webresponse in here
             //and put it in the HTTP_RESPONSE object.
+
+
+            using (var streamWriter = webResponse.GetResponseStream())
+            {
+
+                StreamReader reader = new StreamReader(streamWriter);
+                string response2 = reader.ReadToEnd();
+                output.StatusCode = webResponse.StatusCode;
+                output.MessageBody = response2;
+              
+            }
 
             return output;
         }
