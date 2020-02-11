@@ -13,9 +13,10 @@ namespace BaseFramework.Rest
     {
         private String baseUrl;
         private Dictionary<String,String> headers;
+        
 
         #region REST Constructor
-        public Rest(String url)
+        public Rest(string url)
         {
             this.baseUrl = url;
             headers = new Dictionary<String, String>();
@@ -62,11 +63,13 @@ namespace BaseFramework.Rest
             request.KeepAlive = false;
 
             foreach (KeyValuePair<String, String> kvp in headers)
+            {
                 request.Headers.Add(kvp.Key, kvp.Value);
 
-            if (!String.IsNullOrEmpty(body))
-            {
-               //We should probably add our body to the request's content here
+                if (!String.IsNullOrEmpty(body))
+                {
+                    //We should probably add our body to the request's content here
+                }
             }
 
             responseTimer.Start();
