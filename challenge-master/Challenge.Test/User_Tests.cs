@@ -14,12 +14,12 @@ namespace Challenge.Tests
     [TestClass]
     public class User_Tests
     {
-        private readonly String baseUrl = ConfigurationManager.AppSettings["baseUrl"];
+        private readonly String baseUrl = ConfigurationManager.AppSettings.Get("baseUrl");
 
         [TestMethod]
         public void API_GET_Test()
         {
-            String endpoint = "/api/v1/employee/2"; 
+            String endpoint = "/api/v1/employee/10"; 
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
@@ -30,13 +30,14 @@ namespace Challenge.Tests
         [TestMethod]
         public void API_POST_Test()
         {
-            String endpoint = "/api/v1/create/";
+            String endpoint = "/api/v1/create";
             User user = new User();
-            user.Name = "";
-            user.Salary = "";
-            user.Age = "";
+            user.Name = "test";
+            user.Salary = "123";
+            user.Age = "23";
             Rest rest = new Rest(baseUrl);
-            HTTP_RESPONSE resp = rest.POST(endpoint, "");
+            HTTP_RESPONSE resp = rest.POST(endpoint, $"{{ \"name\" : \"{user.Name}\", \"salary\" : \"{user.Salary}\" , \"age\" : \"{user.Age}\" }}");
+
             //Need some assertions here to check the response.
         }
 

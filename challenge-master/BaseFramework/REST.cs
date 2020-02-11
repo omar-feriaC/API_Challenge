@@ -56,9 +56,13 @@ namespace BaseFramework.Rest
             HTTP_RESPONSE response = new HTTP_RESPONSE();
             Stopwatch responseTimer = new Stopwatch();
 
-            byte[] data = null;
+            ASCIIEncoding encoding = new ASCIIEncoding();
+
+            
+
             request.Method = requestType;
             request.ContentType = "application/json";
+            
             request.KeepAlive = false;
 
             foreach (KeyValuePair<String, String> kvp in headers)
@@ -66,7 +70,12 @@ namespace BaseFramework.Rest
 
             if (!String.IsNullOrEmpty(body))
             {
-               //We should probably add our body to the request's content here
+                byte[] data = encoding.GetBytes(body);
+                request.ContentLength = data.Length;
+                //We should probably add our body to the request's content here
+                Stream newStream = request.GetRequestStream();
+                newStream.Write(data, 0, data.Length);
+                newStream.Close();
             }
 
             responseTimer.Start();
@@ -98,6 +107,26 @@ namespace BaseFramework.Rest
 
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
+
+            Stream receiveStream = webResponse.GetResponseStream();
+            Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
+            
+            StreamReader readStream = new StreamReader(receiveStream, encode);
+            Console.WriteLine("\r\nResponse stream received.");
+            Char[] read = new Char[256];
+            
+            int count = readStream.Read(read, 0, 256);
+            while (count > 0)
+            {
+                String str = new String(read, 0, count);
+                Console.Write(str);
+                count = readStream.Read(read, 0, 256);
+            }
+            Console.WriteLine("");
+
+            webResponse.Close();
+            
+            readStream.Close();
 
             return output;
         }

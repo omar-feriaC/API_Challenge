@@ -9,6 +9,7 @@ namespace Challenge.Test
         [TestMethod]
         public void Objective_3_Task1_Positive()
         {
+            
         }
     }
 
