@@ -8,9 +8,9 @@ namespace BaseFramework.Model
     public class User
     {
         public UInt64 _id;
-        public String Name;
-        public String Salary;
-        public String Age;
+        public String name;
+        public String salary;
+        public String age;
     }
     public class Error
     {
@@ -24,5 +24,18 @@ namespace BaseFramework.Model
     public class Message
     {
 
+    }
+    public class Employee
+    {
+        public string status { get; set; }
+        public Data data { get; set; }
+    }
+
+    public class Data
+    {
+        public string name { get; set; }
+        public string salary { get; set; }
+        public string age { get; set; }
+        public string id { get; set; }
     }
 }
