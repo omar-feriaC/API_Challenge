@@ -112,7 +112,11 @@ namespace BaseFramework.Rest
             Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
             
             StreamReader readStream = new StreamReader(receiveStream, encode);
-            Console.WriteLine("\r\nResponse stream received.");
+            output.StatusCode = webResponse.StatusCode;
+            Console.WriteLine("Status Code: " + output.StatusCode);
+            Console.WriteLine("\r\nResponse stream received:");
+            
+
             Char[] read = new Char[256];
             
             int count = readStream.Read(read, 0, 256);
@@ -120,6 +124,7 @@ namespace BaseFramework.Rest
             {
                 String str = new String(read, 0, count);
                 Console.Write(str);
+                output.MessageBody = str;
                 count = readStream.Read(read, 0, 256);
             }
             Console.WriteLine("");

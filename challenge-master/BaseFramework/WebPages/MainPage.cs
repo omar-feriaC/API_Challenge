@@ -24,7 +24,7 @@ namespace BaseFramework.WebPages
         readonly static string STR_PLUS_CHECKBTN = "//input[@name='chk3']";
         readonly static string STR_P_CHECKBTN = "//input[@name='chk4']";
         static string STR_SELECT_DROPDOWN = "//div[@name = 'selOpt']/select";
-        static string STR_DONTSELECT_DROPDOWN = $"//div[@name = 'noSel']/select]";
+        static string STR_DONTSELECT_DROPDOWN = $"//div[@name = 'noSel']/select";
         readonly static string STR_SUBMIT_BTN = "//*[text()='Submit']";
 
         public MainPage(IWebDriver driver)

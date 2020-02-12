@@ -7,10 +7,10 @@ namespace BaseFramework.Model
     //We probably want to create data models for our different responses
     public class User
     {
-        public UInt64 _id;
-        public String Name;
-        public String Salary;
-        public String Age;
+        public UInt64 id;
+        public String name;
+        public String salary;
+        public String age;
     }
     public class Error
     {
@@ -23,6 +23,9 @@ namespace BaseFramework.Model
     }
     public class Message
     {
-
+        public string FirstName;
+        public string LastName;
+        public string SelectDropdown;
+        public string NoSelectDropdown;
     }
 }
