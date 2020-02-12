@@ -12,13 +12,13 @@ namespace BaseFramework.Rest
     public class Rest
     {
         private String baseUrl;
-        private Dictionary<String,String> headers;
+        private Dictionary<String, String> headers;
 
         #region REST Constructor
         public Rest(String url)
         {
             this.baseUrl = url;
-            headers = new Dictionary<String, String>();
+            headers = new Dictionary<string, string>();
         }
         #endregion
 
@@ -30,7 +30,7 @@ namespace BaseFramework.Rest
         public bool AddHeader(String key, String value)
         {
             try { headers.Add(key, value); return true; }
-            catch (Exception ex){ Debug.WriteLine(ex.Message);  return false; }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); return false; }
         }
         #endregion
 
@@ -56,17 +56,28 @@ namespace BaseFramework.Rest
             HTTP_RESPONSE response = new HTTP_RESPONSE();
             Stopwatch responseTimer = new Stopwatch();
 
+
             byte[] data = null;
             request.Method = requestType;
             request.ContentType = "application/json";
             request.KeepAlive = false;
+            request.PreAuthenticate = true;
+
 
             foreach (KeyValuePair<String, String> kvp in headers)
                 request.Headers.Add(kvp.Key, kvp.Value);
 
             if (!String.IsNullOrEmpty(body))
             {
-               //We should probably add our body to the request's content here
+                //We should probably add our body to the request's content here
+                data = ASCIIEncoding.ASCII.GetBytes(body);
+                request.ContentLength = data.Length;
+
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                    stream.Close();
+                }
             }
 
             responseTimer.Start();
@@ -99,6 +110,19 @@ namespace BaseFramework.Rest
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
 
+      //      Console.WriteLine(((HttpWebResponse)webResponse).StatusDescription);
+
+            using (var stream = webResponse.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(stream);
+                string responseFromServer = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
+                output.StatusCode = webResponse.StatusCode;
+                output.MessageBody = responseFromServer;
+
+            }
+
             return output;
         }
         #endregion
@@ -109,7 +133,7 @@ namespace BaseFramework.Rest
     public class HTTP_RESPONSE
     {
         public HttpStatusCode StatusCode;
-        public Dictionary<String,String> Headers;
+        public Dictionary<String, String> Headers;
         public String MessageBody;
         public TimeSpan Time;
 
@@ -118,7 +142,7 @@ namespace BaseFramework.Rest
             Headers = new Dictionary<String, String>();
         }
 
-        public void PopulateHeaders(WebHeaderCollection headersIn)
+        public void PopulateHeaders(string v, WebHeaderCollection headersIn)
         {
             for (int i = 0; i < headersIn.Count; i++)
             {
