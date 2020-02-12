@@ -16,11 +16,12 @@ namespace Challenge.Test
         public string firstName = "Carlos";
         public string lastName = "Paz";
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
             driver = new ChromeDriver();
             driver.Url = url;
+            driver.Manage().Window.Maximize();
             mainPage = new MainPage(driver);
         }
 
@@ -39,6 +40,7 @@ namespace Challenge.Test
                 mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
                 mainPage.selectDropDownOption1("5");
+                mainPage.selectDropDownOption2("");
                 mainPage.clickSubmitButton();
                 string message = mainPage.Alert(expectedMessage);
                 Assert.AreEqual(expectedMessage, message);
@@ -63,6 +65,7 @@ namespace Challenge.Test
                 mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
                 mainPage.selectDropDownOption1("5");
+                mainPage.selectDropDownOption2("");
                 mainPage.clickSubmitButton();
                 string message = mainPage.Alert(expectedMessage);
                 Assert.AreEqual(expectedMessage, message);
@@ -87,6 +90,7 @@ namespace Challenge.Test
                 mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
                 mainPage.selectDropDownOption1("5");
+                mainPage.selectDropDownOption2("");
                 mainPage.clickSubmitButton();
                 string message = mainPage.Alert(expectedMessage);
                 Assert.AreEqual(expectedMessage, message);
@@ -113,6 +117,7 @@ namespace Challenge.Test
                 mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
                 mainPage.selectDropDownOption1("5");
+                mainPage.selectDropDownOption2("");
                 mainPage.clickSubmitButton();
                 string message = mainPage.Alert(expectedMessage);
                 Assert.AreEqual(expectedMessage, message);
@@ -138,6 +143,7 @@ namespace Challenge.Test
                 mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
                 mainPage.selectDropDownOption1("4");
+                mainPage.selectDropDownOption2("");
                 mainPage.clickSubmitButton();
                 string message = mainPage.Alert(expectedMessage);
                 Assert.AreEqual(expectedMessage, message);
@@ -174,7 +180,7 @@ namespace Challenge.Test
             }
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void OneTimeTearDown()
         {
             driver.Close();
