@@ -5,36 +5,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BaseFramework.Rest;
 using BaseFramework.Model;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using NUnit.Framework;
 
 namespace Challenge.Tests
 {
-    [TestClass]
     public class User_Tests
     {
         private readonly String baseUrl = ConfigurationManager.AppSettings["baseUrl"];
         Random rand = new Random();
 
-        [TestMethod]
+        [Test]
         public void API_GET_Test()
         {
-            String endpoint = "/api/v1/employee/2";
+            String endpoint = "/api/v1/employees";
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
             //We should probably do some more assertions here on the response to check that our GET request was successful.   
-    
-           Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
-           Assert.IsNotNull(resp.MessageBody);
-           Console.WriteLine(resp.MessageBody);
+
+            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
+            Assert.IsNotNull(resp.MessageBody);
+
+            DesUserList userList = JsonConvert.DeserializeObject<DesUserList>(resp.MessageBody); //Getting the message body to deserialize the JSON list
+
+            for (int i = 0; i < userList.data.Count; i++)
+            {
+                Assert.IsNotNull(userList.data.ElementAt(i).id);
+                Assert.IsNotNull(userList.data.ElementAt(i).employee_name);
+                Assert.IsNotNull(userList.data.ElementAt(i).employee_salary);
+                Assert.IsNotNull(userList.data.ElementAt(i).employee_age);
+                Console.WriteLine($"ID: {userList.data.ElementAt(i).id}, " +
+                    $"Name: {userList.data.ElementAt(i).employee_name}, " +
+                    $"Salary: {userList.data.ElementAt(i).employee_salary}, " +
+                    $"Age: {userList.data.ElementAt(i).employee_age}, " +
+                    $"Profile Image: {userList.data.ElementAt(i).profile_image}");
+            }
         }
 
-        [TestMethod]
+        [Test]
         public void API_POST_Test()
         {
-
             String endpoint = "/api/v1/create";
             User user = new User();
             user.name = "Carlos" + rand.Next(999);

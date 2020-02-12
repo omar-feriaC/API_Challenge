@@ -37,8 +37,8 @@ namespace Challenge.Test
                 mainPage.enterLastName(lastName);
                 mainPage.clearButtons();
                 mainPage.clickBCheckbox();
-                mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
+                mainPage.clickPCheckbox();
                 mainPage.selectDropDownOption1("5");
                 mainPage.selectDropDownOption2("");
                 mainPage.clickSubmitButton();
@@ -62,8 +62,8 @@ namespace Challenge.Test
                 mainPage.enterLastName(lastName);
                 mainPage.clearButtons();
                 mainPage.clickBCheckbox();
-                mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
+                mainPage.clickPCheckbox();
                 mainPage.selectDropDownOption1("5");
                 mainPage.selectDropDownOption2("");
                 mainPage.clickSubmitButton();
@@ -87,8 +87,8 @@ namespace Challenge.Test
                 mainPage.enterFirstName(firstName);
                 mainPage.clearButtons();
                 mainPage.clickBCheckbox();
-                mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
+                mainPage.clickPCheckbox();
                 mainPage.selectDropDownOption1("5");
                 mainPage.selectDropDownOption2("");
                 mainPage.clickSubmitButton();
@@ -114,8 +114,8 @@ namespace Challenge.Test
                 mainPage.clearButtons();
                 mainPage.clickBCheckbox();
                 mainPage.clickCCheckbox();
-                mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
+                mainPage.clickPCheckbox();
                 mainPage.selectDropDownOption1("5");
                 mainPage.selectDropDownOption2("");
                 mainPage.clickSubmitButton();
@@ -140,8 +140,8 @@ namespace Challenge.Test
                 mainPage.enterLastName(lastName);
                 mainPage.clearButtons();
                 mainPage.clickBCheckbox();
-                mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
+                mainPage.clickPCheckbox();
                 mainPage.selectDropDownOption1("4");
                 mainPage.selectDropDownOption2("");
                 mainPage.clickSubmitButton();
@@ -166,8 +166,8 @@ namespace Challenge.Test
                 mainPage.enterLastName(lastName);
                 mainPage.clearButtons();
                 mainPage.clickBCheckbox();
-                mainPage.clickPCheckbox();
                 mainPage.clickPlusCheckbox();
+                mainPage.clickPCheckbox();
                 mainPage.selectDropDownOption1("5");
                 mainPage.selectDropDownOption2("5");
                 mainPage.clickSubmitButton();

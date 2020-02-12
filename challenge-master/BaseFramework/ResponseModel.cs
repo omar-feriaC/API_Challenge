@@ -27,7 +27,22 @@ namespace BaseFramework.Model
         public int id { get; set; }
     }
 
-    public class Error
+   public class DesUserList
+    {
+        public string status { get; set; }
+        public List<DataList> data { get; set; }
+
+    }
+    public class DataList
+    {
+        public string employee_name { get; set; }
+        public int employee_salary { get; set; }
+        public int employee_age { get; set; }
+        public int id { get; set; }
+        public string profile_image { get; set; }
+    }
+    
+public class Error
     {
 
     }
