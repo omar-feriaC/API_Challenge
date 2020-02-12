@@ -9,6 +9,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
 
+
 namespace BaseFramework.WebPages
 {
     public class MainPage : BaseTest
@@ -92,12 +93,59 @@ namespace BaseFramework.WebPages
             if (objCBXC.Selected) objCBXC.Click();
             if (objCBXPLUS.Selected) objCBXPLUS.Click();
             if (objCBXP.Selected) objCBXP.Click();
-
         }
 
+        public static void fnEnterFName(string pFirstName)
+        {
+            objFName.SendKeys(pFirstName);
+        }
 
+        private IWebElement GetLName()
+        {
+            return objLName;
+        }
 
+        public static void fnEnterLName(string pLastName)
+        {
+            objLName.SendKeys(pLastName);
+        }
 
+        public static void fnCheckboxes(bool pCbxB, bool pCbxC, bool pCbxPlus, bool pCbxP)
+        {
+            if (pCbxB) objCBXB.Click();
+            if (pCbxC) objCBXC.Click();
+            if (pCbxPlus) objCBXPLUS.Click();
+            if (pCbxP) objCBXP.Click();
+        }
 
+        public static void fnDDSelection(int i)
+        {
+            objDDSel.Click();
+            _driverWait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(STR_DD_SEL_OPT_2)));
+            objDDSel.SendKeys($"{i}");
+            objDDSel.SendKeys(Keys.Enter);
+        }
+
+        public static void fnDDNoSelection(int i)
+        {
+            objDDNoSel.Click();
+            _driverWait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(STR_DD_NOSEL_OPT_2)));
+            objDDNoSel.SendKeys($"{i}");
+            objDDNoSel.SendKeys(Keys.Enter);
+        }
+
+        public static void fnClickSubmit()
+        {
+            objBtnSubmit.Click();
+        }
+
+        public static string fnAlert()
+        {
+            IAlert alert = driver.SwitchTo().Alert();
+            string AlertMessage = alert.Text;
+            alert.Accept();
+            Console.WriteLine("Message displayed: " + AlertMessage);
+            return AlertMessage;
+        }
     }
 }
