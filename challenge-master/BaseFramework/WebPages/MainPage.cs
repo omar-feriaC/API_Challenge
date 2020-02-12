@@ -43,6 +43,7 @@ namespace BaseFramework.WebPages
         private IWebElement objDontSelectDropdwn => _driver.FindElement(By.XPath(STR_DONTSELECT_DROPDOWN));
         private IWebElement objSubmitBtn => _driver.FindElement(By.XPath(STR_SUBMIT_BTN));
 
+        
 
         //Methods
 
@@ -74,7 +75,18 @@ namespace BaseFramework.WebPages
             objLastName.SendKeys(pstrLastNameTxt);
         }
 
-        /* Select check Box B */
+        /* Clear Check box */
+        public void fnClearCheckBox()
+
+        { 
+            if (objBCheckBtn.Selected) objBCheckBtn.Click();
+            if (objCCheckBtn.Selected) objCCheckBtn.Click();
+            if (objPlusCheckBtn.Selected) objPlusCheckBtn.Click();
+            if (objPCheckBtn.Selected) objPCheckBtn.Click();
+
+        }
+
+/* Select check Box B */
 
         private IWebElement ClickCheckbtnB()
         {
@@ -83,7 +95,6 @@ namespace BaseFramework.WebPages
 
         public void fnClickCheckbtnB()
         {
-           // _driverWait.Until()
             objBCheckBtn.Click();
         }
 
