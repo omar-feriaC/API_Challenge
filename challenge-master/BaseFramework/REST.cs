@@ -66,7 +66,13 @@ namespace BaseFramework.Rest
 
             if (!String.IsNullOrEmpty(body))
             {
-               //We should probably add our body to the request's content here
+                //We should probably add our body to the request's content here
+                data = Encoding.UTF8.GetBytes(body);
+                request.ContentLength = data.Length;
+                Stream s = request.GetRequestStream();
+                s.Write(data, 0, data.Length);
+                s.Dispose();
+                s.Close();
             }
 
             responseTimer.Start();
@@ -98,6 +104,14 @@ namespace BaseFramework.Rest
 
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
+            Stream s = null;
+            using (s = webResponse.GetResponseStream())
+            {
+                StreamReader r = new StreamReader(s);
+                string response = r.ReadToEnd();
+                output.MessageBody = response;
+            }
+            output.StatusCode = webResponse.StatusCode;
 
             return output;
         }
@@ -128,4 +142,18 @@ namespace BaseFramework.Rest
     }
     #endregion
 
+    static class Employee
+    {
+        string Status { get; set; }
+        Data Data { get; set; }
+    }
+    
+    static class Data
+    {
+        string ID { get; set; }
+        string Name { get; set; }
+        string Salary { get; set; }
+        string Age { get; set; }
+        string ProfileImage { get; set; }
+    }
 }
