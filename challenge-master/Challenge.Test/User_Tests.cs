@@ -19,7 +19,7 @@ namespace Challenge.Tests
         [TestMethod]
         public void API_GET_Test()
         {
-            String endpoint = "/api/v1/employee/10"; 
+            String endpoint = "/api/v1/employees"; 
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
