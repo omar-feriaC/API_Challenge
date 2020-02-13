@@ -7,11 +7,13 @@ namespace BaseFramework.Model
     //We probably want to create data models for our different responses
     public class User
     {
-        public UInt64 _id;
-        public String Name;
-        public String Salary;
-        public String Age;
+        public UInt64 id;
+        public string name;
+        public string salary;
+        public string age;
+        //"Data":{"name":"Juan","salary":"127","age":"35","id":57}}
     }
+
     public class Error
     {
 

@@ -9,6 +9,8 @@ namespace Challenge.Test
         [TestMethod]
         public void Objective_3_Task1_Positive()
         {
+            //---------------------------------------------------------
+            //Solution for the post is in the API_POST_Test
         }
     }
 
