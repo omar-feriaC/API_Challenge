@@ -24,9 +24,12 @@ namespace Challenge.Tests
             String endpoint = "/api/v1/employees";
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
+            GetEmployee DesJson = JsonConvert.DeserializeObject<GetEmployee>(resp.MessageBody);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
             //We should probably do some more assertions here on the response to check that our GET request was successful.
-
+            Assert.IsNotNull(resp.MessageBody);
+            Assert.AreEqual("2", DesJson.data[1].id);
+            Console.WriteLine("ID of the call is: " + DesJson.data[1].id);
         }
-    }   
+    }
 }

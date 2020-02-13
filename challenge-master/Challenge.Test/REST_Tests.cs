@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using BaseFramework.Rest;
 using BaseFramework.Model;
 using System.Net;
-using System;
 using System.Configuration;
 
 namespace Challenge.Test

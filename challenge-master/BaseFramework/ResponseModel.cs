@@ -31,11 +31,31 @@ namespace BaseFramework.Model
         public Data data { get; set; }
     }
 
+    public class GetEmployee
+    {
+        public string status { get; set; }
+        public List<GetData> data { get; set; }
+    }
+
     public class Data
     {
         public string name { get; set; }
         public string salary { get; set; }
         public string age { get; set; }
         public string id { get; set; }
+    }
+
+    public class GetData
+    {
+        public string employee_name { get; set; }
+        public string employee_salary { get; set; }
+        public string employee_age { get; set; }
+        public string id { get; set; }
+    }
+
+    public class GetEmp
+    {
+        public string status { get; set; }
+        public IList<string> Getdata = new List<string>();
     }
 }
