@@ -25,9 +25,8 @@ namespace Challenge.Tests
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
-            Console.WriteLine(resp.MessageBody);
             StringAssert.Contains(resp.MessageBody, "success", "Response did not come with a success status");
-            //We should probably do some more assertions here on the response to check that our GET request was successful.
+            Console.WriteLine(resp.MessageBody);
         }
 
 
@@ -38,20 +37,26 @@ namespace Challenge.Tests
         public void API_POST_Test()
         {
             String endpoint = "/api/v1/create";
-            Employee employee = new Employee();
-            employee.data.name = "test";
-            employee.date.salary = "123";
-            employee.data.age = "23";
+           
+            Data data = new Data();
+            data.name = "test";
+            data.salary = "123";
+            data.age = "23";
 
           
-            string json = JsonConvert.SerializeObject(employee);
+            string json = JsonConvert.SerializeObject(data);
      
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.POST(endpoint, json);
+            Employee json2 = JsonConvert.DeserializeObject<Employee>(resp.MessageBody);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
-            StringAssert.Contains(resp.MessageBody, "success", "Response did not come with a success status");
+            Assert.AreEqual("success",json2.status);
+            Assert.AreEqual("test", json2.data.name);
+            Assert.AreEqual("123", json2.data.salary);
+            Assert.IsNotNull(json2.data.id);
+
             Console.WriteLine(resp.MessageBody);
-            //Need some assertions here to check the response.
+            
         }
 
     }
