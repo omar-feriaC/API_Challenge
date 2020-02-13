@@ -124,7 +124,7 @@ namespace BaseFramework.Rest
             {
                 String str = new String(read, 0, count);
                 Console.Write(str);
-                output.MessageBody = str;
+                output.MessageBody += str;
                 count = readStream.Read(read, 0, 256);
             }
             Console.WriteLine("");
