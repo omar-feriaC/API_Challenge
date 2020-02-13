@@ -22,6 +22,7 @@ namespace BaseFramework.WebPages
         /*URL for Webdriver*/
         private static string strBrowserName = ConfigurationManager.AppSettings.Get("url");
         /*Extent Reports Framework*/
+        #region
         //public static clsReportManager objRM = new clsReportManager();
         //public static ExtentV3HtmlReporter objHtmlReporter; //Add information in HTML
         //public static ExtentReports objExtent; //Extent Reports Object
@@ -29,10 +30,11 @@ namespace BaseFramework.WebPages
         //public static ExtentHtmlReporter objHtmlReporter; //Old Version of HTML
 
 
-
+        #endregion
         //**************************************************
         //                  M E T H O D S 
         //**************************************************
+        #region
         //OneTimeSetUp before each class test
         //[OneTimeSetUp]
         //public static void fnBeforeClass()
@@ -57,7 +59,7 @@ namespace BaseFramework.WebPages
         //{
         //    objExtent.Flush();
         //}
-
+        #endregion
         [SetUp]
         //SetUp Before each test case
         public static void SetUp()
@@ -66,7 +68,6 @@ namespace BaseFramework.WebPages
             driver.Url = strBrowserName;
             driver.Manage().Window.Maximize();
             objclsDriver = new clsDriver(driver);
-
         }
 
         [TearDown]

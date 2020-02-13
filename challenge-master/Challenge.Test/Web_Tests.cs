@@ -19,7 +19,7 @@ namespace Challenge.Test
             MainPage.fnCheckboxes(true, false, true, true);
             MainPage.fnDDSelection(5);
             MainPage.fnClickSubmit();
-            NUnit.Framework.Assert.AreEqual("Congratulations Daniel! Everything was properly populated.", MainPage.fnAlert()); 
+            NUnit.Framework.Assert.AreEqual(MainPage.fnAlertMessages(0), MainPage.fnAlert()); 
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace Challenge.Test
             MainPage.fnCheckboxes(true, false, true, true);
             MainPage.fnDDSelection(5);
             MainPage.fnClickSubmit();
-            NUnit.Framework.Assert.AreEqual("Please enter a first name", MainPage.fnAlert());
+            NUnit.Framework.Assert.AreEqual(MainPage.fnAlertMessages(1), MainPage.fnAlert());
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace Challenge.Test
             MainPage.fnCheckboxes(true, false, true, true);
             MainPage.fnDDSelection(5);
             MainPage.fnClickSubmit();
-            NUnit.Framework.Assert.AreEqual("Please enter a last name", MainPage.fnAlert());
+            NUnit.Framework.Assert.AreEqual(MainPage.fnAlertMessages(2), MainPage.fnAlert());
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Challenge.Test
             MainPage.fnCheckboxes(true, true, true, true);
             MainPage.fnDDSelection(5);
             MainPage.fnClickSubmit();
-            NUnit.Framework.Assert.AreEqual("The checkbox selection is not quite right", MainPage.fnAlert());
+            NUnit.Framework.Assert.AreEqual(MainPage.fnAlertMessages(3), MainPage.fnAlert());
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Challenge.Test
             MainPage.fnCheckboxes(true, false, true, true);
             MainPage.fnDDSelection(4);
             MainPage.fnClickSubmit();
-            NUnit.Framework.Assert.AreEqual("The dropdown selection is not quite right", MainPage.fnAlert());
+            NUnit.Framework.Assert.AreEqual(MainPage.fnAlertMessages(4), MainPage.fnAlert());
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace Challenge.Test
             MainPage.fnDDSelection(5);
             MainPage.fnDDNoSelection(5);
             MainPage.fnClickSubmit();
-            NUnit.Framework.Assert.AreEqual("A selection was made other than the default in select list 2", MainPage.fnAlert());
+            NUnit.Framework.Assert.AreEqual(MainPage.fnAlertMessages(5), MainPage.fnAlert());
         }
 
 

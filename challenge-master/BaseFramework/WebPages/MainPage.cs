@@ -18,6 +18,7 @@ namespace BaseFramework.WebPages
         public static readonly string url = "http://ztestqa.com/selenium/mainpage.html";
         public static WebDriverWait _driverWait;
         private static IWebDriver _objDriver;
+        private static string FName = "";
 
         /*LOCATORS DESCRIPTION*/
 
@@ -53,13 +54,7 @@ namespace BaseFramework.WebPages
 
         /*METHODS/FUNCTIONS*/
 
-        //
-        private IWebElement GetClearElements()
-        {
-            return objFName;
-            
-        }
-
+        //Function to Clear all the Textboxes and Checkboxes in order to start every test with a page free of selections.
         public static void fnClearAll()
         {
             _driverWait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath(STR_FNAME_INPUT)));
@@ -71,21 +66,20 @@ namespace BaseFramework.WebPages
             if (objCBXP.Selected) objCBXP.Click();
         }
 
+        //Function to enter the First Name.
         public static void fnEnterFName(string pFirstName)
         {
+            FName = pFirstName;
             objFName.SendKeys(pFirstName);
         }
 
-        private IWebElement GetLName()
-        {
-            return objLName;
-        }
-
+        //Function to enter the Last Name.
         public static void fnEnterLName(string pLastName)
         {
             objLName.SendKeys(pLastName);
         }
 
+        //Function to select the desired Checkbox for every test case.
         public static void fnCheckboxes(bool pCbxB, bool pCbxC, bool pCbxPlus, bool pCbxP)
         {
             if (pCbxB) objCBXB.Click();
@@ -94,6 +88,7 @@ namespace BaseFramework.WebPages
             if (pCbxP) objCBXP.Click();
         }
 
+        //Function to choose any option from the First Dropdown menu.
         public static void fnDDSelection(int i)
         {
             objDDSel.Click();
@@ -102,6 +97,7 @@ namespace BaseFramework.WebPages
             objDDSel.SendKeys(Keys.Enter);
         }
 
+        //Function to choose any option from the second Dropdown menu.
         public static void fnDDNoSelection(int i)
         {
             objDDNoSel.Click();
@@ -110,11 +106,13 @@ namespace BaseFramework.WebPages
             objDDNoSel.SendKeys(Keys.Enter);
         }
 
+        //Function to click on Submit button.
         public static void fnClickSubmit()
         {
             objBtnSubmit.Click();
         }
 
+        //Function to Capture an Alert message, save it on a variable and print it in the Console.
         public static string fnAlert()
         {
             IAlert alert = driver.SwitchTo().Alert();
@@ -122,6 +120,20 @@ namespace BaseFramework.WebPages
             alert.Accept();
             Console.WriteLine("Message displayed: " + AlertMessage);
             return AlertMessage;
+        }
+
+        //Function to store the Alert Messages availables in order to compare and validate against the actual Message.
+        public static string fnAlertMessages(int i)
+        {
+            List<string> Message = new List<string>() 
+            {
+                "Congratulations " + FName +"! Everything was properly populated.",
+                "Please enter a first name",
+                "Please enter a last name",
+                "The checkbox selection is not quite right",
+                "The dropdown selection is not quite right",
+                "A selection was made other than the default in select list 2"};
+            return Message[i].ToString();
         }
     }
 }
