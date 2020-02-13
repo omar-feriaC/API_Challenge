@@ -66,7 +66,12 @@ namespace BaseFramework.Rest
 
             if (!String.IsNullOrEmpty(body))
             {
-               //We should probably add our body to the request's content here
+                data = Encoding.UTF8.GetBytes(body);
+                request.ContentLength = data.Length;
+                Stream s = request.GetRequestStream();
+                s.Write(data, 0, data.Length);
+                s.Dispose();
+                s.Close();
             }
 
             responseTimer.Start();
@@ -98,7 +103,16 @@ namespace BaseFramework.Rest
 
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
-
+            StreamReader reader;
+            using (var dataStream = webResponse.GetResponseStream())
+            {
+                reader = new StreamReader(dataStream);
+                string responseFromServer = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
+                output.StatusCode = webResponse.StatusCode;
+                output.MessageBody = responseFromServer;
+            }
             return output;
         }
         #endregion
