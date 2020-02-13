@@ -21,49 +21,70 @@ namespace Challenge.Tests
         [Test]
         public void API_GET_Test()
         {
-            String endpoint = "/api/v1/employees";
-            Rest rest = new Rest(baseUrl);
-            HTTP_RESPONSE resp = rest.GET(endpoint);
-            //We should probably do some more assertions here on the response to check that our GET request was successful.   
-
-            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
-            Assert.IsNotNull(resp.MessageBody);
-
-            DesUserList userList = JsonConvert.DeserializeObject<DesUserList>(resp.MessageBody); //Getting the message body to deserialize the JSON list
-
-            for (int i = 0; i < userList.data.Count; i++)
+            try
             {
-                Assert.IsNotNull(userList.data.ElementAt(i).id);
-                Assert.IsNotNull(userList.data.ElementAt(i).employee_name);
-                Assert.IsNotNull(userList.data.ElementAt(i).employee_salary);
-                Assert.IsNotNull(userList.data.ElementAt(i).employee_age);
-                Console.WriteLine($"ID: {userList.data.ElementAt(i).id}, " +
-                    $"Name: {userList.data.ElementAt(i).employee_name}, " +
-                    $"Salary: {userList.data.ElementAt(i).employee_salary}, " +
-                    $"Age: {userList.data.ElementAt(i).employee_age}, " +
-                    $"Profile Image: {userList.data.ElementAt(i).profile_image}");
+                String endpoint = "/api/v1/employees";
+                Rest rest = new Rest(baseUrl);
+                HTTP_RESPONSE resp = rest.GET(endpoint);
+                //We should probably do some more assertions here on the response to check that our GET request was successful.   
+
+                Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
+                Assert.IsNotNull(resp.MessageBody);
+
+                DesUserList userList = JsonConvert.DeserializeObject<DesUserList>(resp.MessageBody); //Getting the message body to deserialize the JSON list
+
+                Console.WriteLine("List of Employees");
+
+                for (int i = 0; i < userList.data.Count; i++)
+                {
+                    Assert.IsNotNull(userList.data.ElementAt(i).id);
+                    Assert.IsNotNull(userList.data.ElementAt(i).employee_name);
+                    Assert.IsNotNull(userList.data.ElementAt(i).employee_salary);
+                    Assert.IsNotNull(userList.data.ElementAt(i).employee_age);
+                    Console.WriteLine($"ID: {userList.data.ElementAt(i).id}, " +
+                        $"Name: {userList.data.ElementAt(i).employee_name}, " +
+                        $"Salary: {userList.data.ElementAt(i).employee_salary}, " +
+                        $"Age: {userList.data.ElementAt(i).employee_age}, " +
+                        $"Profile Image: {userList.data.ElementAt(i).profile_image}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                Assert.Fail();
             }
         }
 
         [Test]
         public void API_POST_Test()
         {
-            String endpoint = "/api/v1/create";
-            User user = new User();
-            user.name = "Carlos" + rand.Next(999);
-            user.salary = "2345" + rand.Next(999);
-            user.age = "34";
-            string json = JsonConvert.SerializeObject(user);
-            Rest rest = new Rest(baseUrl);
-            HTTP_RESPONSE resp = rest.POST(endpoint, json);
-      
-            DesUser userList = JsonConvert.DeserializeObject<DesUser>(resp.MessageBody); //Getting the message body to deserialize the JSON list
+            try
+            {
+                String endpoint = "/api/v1/create";
+                User user = new User();
+                user.name = "Carlos" + rand.Next(999);
+                user.salary = "2345" + rand.Next(999);
+                user.age = "34";
+                string json = JsonConvert.SerializeObject(user);
+                Rest rest = new Rest(baseUrl);
+                HTTP_RESPONSE resp = rest.POST(endpoint, json);
 
-            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
-            Assert.IsNotNull(userList.data.id);
-            Assert.IsNotNull(userList.data.name);
-            Assert.IsNotNull(userList.data.salary);
-            Assert.IsNotNull(userList.data.age);
+                DesUser userList = JsonConvert.DeserializeObject<DesUser>(resp.MessageBody); //Getting the message body to deserialize the JSON list
+
+                Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
+                Assert.IsNotNull(userList.data.id);
+                Assert.IsNotNull(userList.data.name);
+                Assert.IsNotNull(userList.data.salary);
+                Assert.IsNotNull(userList.data.age);
+                Assert.AreEqual(user.name, userList.data.name);
+                Assert.AreEqual(user.salary, userList.data.salary);
+                Assert.AreEqual(user.age, userList.data.age);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                Assert.Fail();
+            }    
         }
     }
 }

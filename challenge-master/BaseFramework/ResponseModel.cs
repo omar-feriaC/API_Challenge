@@ -22,9 +22,9 @@ namespace BaseFramework.Model
     public class Data
     {
         public string name { get; set; }
-        public int salary { get; set; }
-        public int age { get; set; }
-        public int id { get; set; }
+        public string salary { get; set; }
+        public string age { get; set; }
+        public string id { get; set; }
     }
 
    public class DesUserList
