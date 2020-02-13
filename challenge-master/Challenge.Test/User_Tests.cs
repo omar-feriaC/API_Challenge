@@ -38,13 +38,13 @@ namespace Challenge.Tests
         public void API_POST_Test()
         {
             String endpoint = "/api/v1/create";
-            User user = new User();
-            user.name = "test";
-            user.salary = "123";
-            user.age = "23";
+            Employee employee = new Employee();
+            employee.data.name = "test";
+            employee.date.salary = "123";
+            employee.data.age = "23";
 
           
-            string json = JsonConvert.SerializeObject(user);
+            string json = JsonConvert.SerializeObject(employee);
      
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.POST(endpoint, json);
