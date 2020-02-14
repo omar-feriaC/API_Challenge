@@ -7,10 +7,11 @@ namespace Challenge.Test
 {
     class Web_Tests : BaseTest
     {
-        //MainPage objPage;
+        MainPage objPage;
         [Test]
         public void Positive()
         {
+            objPage = new MainPage(driver);
             MainPage.EnterFirstName("Danny");
             MainPage.EnterLastName("Beltran");
             MainPage.CleanCheckboxes();
@@ -27,6 +28,7 @@ namespace Challenge.Test
         [Test]
         public void Negative_First_Name_Empty()
         {
+            objPage = new MainPage(driver);
             MainPage.EnterLastName("Beltran");
             MainPage.CleanCheckboxes();
             MainPage.ClickBCheckBox();
@@ -42,6 +44,7 @@ namespace Challenge.Test
         [Test]
         public void Negative_Last_Name_Empty()
         {
+            objPage = new MainPage(driver);
             MainPage.EnterFirstName("Danny");
             MainPage.CleanCheckboxes();
             MainPage.ClickBCheckBox();
@@ -57,6 +60,7 @@ namespace Challenge.Test
         [Test]
         public void Negative_Wrong_Check_Box_Selected()
         {
+            objPage = new MainPage(driver);
             MainPage.EnterFirstName("Danny");
             MainPage.EnterLastName("Beltran");
             MainPage.CleanCheckboxes();
@@ -74,6 +78,7 @@ namespace Challenge.Test
         [Test]
         public void Negative_Wrong_Dropdown_Selected_in_first_dropdown()
         {
+            objPage = new MainPage(driver);
             MainPage.EnterFirstName("Danny");
             MainPage.EnterLastName("Beltran");
             MainPage.CleanCheckboxes();
@@ -90,6 +95,7 @@ namespace Challenge.Test
         [Test]
         public void Negative_Wrong_Dropdown_Selected_in_second_dropdown()
         {
+            objPage = new MainPage(driver);
             MainPage.EnterFirstName("Danny");
             MainPage.EnterLastName("Beltran");
             MainPage.CleanCheckboxes();
