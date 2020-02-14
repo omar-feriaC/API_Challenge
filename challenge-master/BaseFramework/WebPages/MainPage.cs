@@ -13,18 +13,8 @@ namespace BaseFramework.WebPages
 {
     public class MainPage
     {
-        //[SetUp]
-        ////SetUp Before each test case
-        //public static void SetUp()
-        //{
-        //    _driver = new ChromeDriver();
-        //    driver.Url = strBrowserName;
-        //    driver.Manage().Window.Maximize();
-
-        //}
-
         /*ATTRIBUTES*/
-        public static readonly string url = "http://ztestqa.com/selenium/mainpage.html";
+        //public static readonly string url = "http://ztestqa.com/selenium/mainpage.html";
         public static WebDriverWait wait;
         private IWebDriver _driver;
 
@@ -38,26 +28,24 @@ namespace BaseFramework.WebPages
         readonly static string STR_SELOP_DROPDOWN = "//div[@name='selOpt']/select";
         readonly static string STR_NOSEL_DROPDOWN = "//div[@name='noSel']/select";
         readonly static string STR_SUBMIT_BTN = "//button[text()='Submit']";
-        //readonly static string 
 
 
         /*CONSTRUCTOR*/
-        public MainPage(IWebDriver driver)
+        public MainPage(IWebDriver pdriver)
         {
-            this._driver = driver;
+            _driver = pdriver;
         }
 
         /*OBJECT DEFINITION*/
-        //private static IWebElement objEmailTxt; 
-        private IWebElement objFirstNameTxt => _driver.FindElement(By.XPath(STR_FIRSTNAME_TXT));
-        private IWebElement objLastNameTxt => _driver.FindElement(By.XPath(STR_LASTNAME_TXT));
-        private IWebElement objBCheck => _driver.FindElement(By.XPath(STR_B_BTN));
-        private IWebElement objCCheck => _driver.FindElement(By.XPath(STR_C_BTN));
-        private IWebElement objPlusCheck => _driver.FindElement(By.XPath(STR_PLUS_BTN));
-        private IWebElement objPCheck => _driver.FindElement(By.XPath(STR_P_BTN));
-        private IWebElement objSelOptDrop => _driver.FindElement(By.XPath(STR_SELOP_DROPDOWN));
-        private IWebElement objNoSelOptDrop => _driver.FindElement(By.XPath(STR_NOSEL_DROPDOWN));
-        private IWebElement objSubmitBtn => _driver.FindElement(By.XPath(STR_SUBMIT_BTN));
+        private IWebElement objFirstNameTxt;// => _driver.FindElement(By.XPath(STR_FIRSTNAME_TXT));
+        private IWebElement objLastNameTxt;// => _driver.FindElement(By.XPath(STR_LASTNAME_TXT));
+        private IWebElement objBCheck;// => _driver.FindElement(By.XPath(STR_B_BTN));
+        private IWebElement objCCheck;// => _driver.FindElement(By.XPath(STR_C_BTN));
+        private IWebElement objPlusCheck;// => _driver.FindElement(By.XPath(STR_PLUS_BTN));
+        private IWebElement objPCheck;// => _driver.FindElement(By.XPath(STR_P_BTN));
+        private IWebElement objSelOptDrop;// => _driver.FindElement(By.XPath(STR_SELOP_DROPDOWN));
+        private IWebElement objNoSelOptDrop;// => _driver.FindElement(By.XPath(STR_NOSEL_DROPDOWN));
+        private IWebElement objSubmitBtn;// => _driver.FindElement(By.XPath(STR_SUBMIT_BTN));
 
 
         /*METHODS / FUNCTIONS*/
@@ -68,6 +56,7 @@ namespace BaseFramework.WebPages
         }
         public void fnEnterFirstN(string pstrFirstName)
         {
+            objFirstNameTxt = _driver.FindElement(By.XPath(STR_FIRSTNAME_TXT));
             objFirstNameTxt.Clear();
             objFirstNameTxt.SendKeys(pstrFirstName);
         }
@@ -78,6 +67,7 @@ namespace BaseFramework.WebPages
         }
         public void fnEnterLastN(string pstrLastName)
         {
+            objLastNameTxt = _driver.FindElement(By.XPath(STR_LASTNAME_TXT));
             objLastNameTxt.Clear();
             objFirstNameTxt.SendKeys(pstrLastName);
         }
@@ -88,6 +78,7 @@ namespace BaseFramework.WebPages
         }
         public void fnClickB(bool pstrFlag = true)
         {
+            objBCheck = _driver.FindElement(By.XPath(STR_B_BTN));
             if (pstrFlag)
             {
                 if (objBCheck.Selected)
@@ -111,6 +102,7 @@ namespace BaseFramework.WebPages
         }
         public void fnClickC(bool pstrFlag = true)
         {
+            objCCheck = _driver.FindElement(By.XPath(STR_C_BTN));
             if (pstrFlag)
             {
                 if (objCCheck.Selected)
@@ -134,6 +126,7 @@ namespace BaseFramework.WebPages
         }
         public void fnClickPlus(bool pstrFlag = true)
         {
+            objPlusCheck = _driver.FindElement(By.XPath(STR_PLUS_BTN));
             if (pstrFlag)
             {
                 if (objPlusCheck.Selected)
@@ -157,6 +150,7 @@ namespace BaseFramework.WebPages
         }
         public void fnClickP(bool pstrFlag=true)
         {
+            objPCheck = _driver.FindElement(By.XPath(STR_P_BTN));
             if (pstrFlag)
             {
                 if (objPCheck.Selected)
@@ -180,6 +174,7 @@ namespace BaseFramework.WebPages
         }
         public void fnSelFirstDropdownOpt(string pstrValue)
         {
+            objSelOptDrop = _driver.FindElement(By.XPath(STR_SELOP_DROPDOWN));
             var selectElement = new SelectElement(objSelOptDrop);
             selectElement.SelectByText(pstrValue);
         }
@@ -190,6 +185,7 @@ namespace BaseFramework.WebPages
         }
         public void fnSelSecondDropdownOpt(string pstrValue)
         {
+            objNoSelOptDrop = _driver.FindElement(By.XPath(STR_NOSEL_DROPDOWN));
             var selectElement = new SelectElement(objNoSelOptDrop);
             selectElement.SelectByText(pstrValue);
         }
@@ -200,6 +196,7 @@ namespace BaseFramework.WebPages
         }
         public void fnClickSubmit()
         {
+            objSubmitBtn = _driver.FindElement(By.XPath(STR_SUBMIT_BTN));
             objSubmitBtn.Click();
         }
 

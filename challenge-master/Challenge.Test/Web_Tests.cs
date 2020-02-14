@@ -1,21 +1,28 @@
 ﻿using System;
+using System.Configuration;
+using BaseFramework;
 using BaseFramework.WebPages;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace Challenge.Test
 {
-    //[TestClass]
+    [TestClass]
     public class Web_Tests
     {
-        MainPage mainPage = null;
+        MainPage mainPage;
+        //public static IWebDriver driver = new ChromeDriver();
 
 
-        [Test]
+        [TestMethod]
         public void MainPage_Correct_Selections_Positive()
         {
             try
             {
+                //mainPage = new MainPage(driver);
                 string firstName = "Jose";
                 mainPage.fnEnterFirstN(firstName);
                 mainPage.fnEnterLastN("Novelo");
@@ -35,7 +42,7 @@ namespace Challenge.Test
             }
         }
 
-        [Test]
+        [TestMethod]
         public void MainPage_First_Name_Empty()
         {
             try
@@ -59,7 +66,7 @@ namespace Challenge.Test
             }
         }
 
-        [Test]
+        [TestMethod]
         public void MainPage_Last_Name_Empty()
         {
             try
@@ -83,7 +90,7 @@ namespace Challenge.Test
             }
         }
 
-        [Test]
+        [TestMethod]
         public void MainPage_Wrong_CheckBox_Selected()
         {
             try
@@ -107,7 +114,7 @@ namespace Challenge.Test
             }
         }
 
-        [Test]
+        [TestMethod]
         public void MainPage_Wrong_Dropdown_Selected_1()
         {
             try
@@ -131,7 +138,7 @@ namespace Challenge.Test
             }
         }
 
-        [Test]
+        [TestMethod]
         public void MainPage_Wrong_Dropdown_Selected_2()
         {
             try
