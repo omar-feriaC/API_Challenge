@@ -25,4 +25,22 @@ namespace BaseFramework.Model
     {
 
     }
+
+    public class EmployeeGet {
+        public string status { get; set; }
+        public List<DataGet> data { get; set; }
+
+
+
+    }
+    public class DataGet {
+        public String nameEmp { get; set; }
+        public String salaryEmp { get; set; }
+        public String ageEmp { get; set; }
+        public String id { get; set; }
+        public String proimg { get; set; }
+
+
+
+    }
 }

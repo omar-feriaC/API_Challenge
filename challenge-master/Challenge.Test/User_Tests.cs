@@ -28,6 +28,22 @@ namespace Challenge.Tests
             res = new Rest(endpoint);
             //We should probably do some more assertions here on the response to check that our GET request was successful.
             Console.WriteLine(resp.MessageBody);
+            EmployeeGet EmpGetDesSerialized = JsonConvert.DeserializeObject<EmployeeGet>(resp.MessageBody);
+            for (int i = 0; i < EmpGetDesSerialized.data.Count ; i++)
+            {
+                if(i == 1)
+                {
+                    Assert.IsNotNull(EmpGetDesSerialized.data.ElementAt(i).id);
+                    Assert.IsNotNull(EmpGetDesSerialized.data.ElementAt(i).nameEmp);
+                    Assert.IsNotNull(EmpGetDesSerialized.data.ElementAt(i).salaryEmp);
+                    Assert.IsNotNull(EmpGetDesSerialized.data.ElementAt(i).ageEmp);
+                    Assert.AreEqual(EmpGetDesSerialized.data.ElementAt(i).proimg, "");
+                    Assert.AreEqual(EmpGetDesSerialized.data.ElementAt(i).id, "2");
+                    Assert.AreEqual(EmpGetDesSerialized.data.ElementAt(i).nameEmp, "Garrett Winters"); 
+                    Assert.AreEqual(EmpGetDesSerialized.data.ElementAt(i).salaryEmp, "170750"); 
+                    Assert.AreEqual(EmpGetDesSerialized.data.ElementAt(i).ageEmp, "63");
+                }
+            }
         }
 
 
