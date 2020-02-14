@@ -203,7 +203,12 @@ namespace BaseFramework.WebPages
             objSubmitBtn.Click();
         }
 
-
+        public string fnReadPopUp()
+        {
+            string strAlertText = _driver.SwitchTo().Alert().Text;
+            _driver.SwitchTo().Alert().Accept();
+            return strAlertText;
+        }
 
 
 
