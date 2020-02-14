@@ -14,7 +14,7 @@ namespace Challenge.Test
     public class Web_Tests
     {
         MainPage mainPage;
-        //public static IWebDriver driver = new ChromeDriver();
+        public static IWebDriver driver = new ChromeDriver();
 
 
         [TestMethod]
@@ -22,7 +22,7 @@ namespace Challenge.Test
         {
             try
             {
-                //mainPage = new MainPage(driver);
+                mainPage = new MainPage(driver);
                 string firstName = "Jose";
                 mainPage.fnEnterFirstN(firstName);
                 mainPage.fnEnterLastN("Novelo");
