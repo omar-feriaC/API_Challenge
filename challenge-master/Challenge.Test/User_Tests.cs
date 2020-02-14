@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BaseFramework.Rest;
 using BaseFramework.Model;
 using Newtonsoft.Json;
+using Dynamitey;
 
 namespace Challenge.Test
 {
@@ -22,9 +23,12 @@ namespace Challenge.Test
         {
             String endpoint = "/api/v1/employees"; 
             Rest rest = new Rest(baseUrl);
-            HTTP_RESPONSE_GET resp = rest.GET(endpoint);
+            List<User> RespUserLsit;
+            HTTP_RESPONSE resp = rest.GET(endpoint);
+            RespUserLsit = JsonConvert.DeserializeObject<List<User>>(JsonConvert.SerializeObject(resp.Data));
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
-            Assert.IsNotNull(resp.Data[0].id, "Expected any value");
+            Assert.IsNotNull(RespUserLsit[0].id, "Expected any value");
+            
         }
 
 
@@ -40,7 +44,7 @@ namespace Challenge.Test
             Rest rest = new Rest(baseUrl);
             string body = JsonConvert.SerializeObject(user);
             HTTP_RESPONSE resp = rest.POST(endpoint, body);
-           
+            RespUser = JsonConvert.DeserializeObject<User>(JsonConvert.SerializeObject(resp.Data));
 
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
             Assert.IsNotNull(RespUser.id, $"Expected a Value");

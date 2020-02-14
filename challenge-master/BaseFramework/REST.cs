@@ -38,7 +38,7 @@ namespace BaseFramework.Rest
         #endregion
 
         #region GET Request
-        public HTTP_RESPONSE_GET GET(String endpoint)
+        public HTTP_RESPONSE GET(String endpoint)
         {
             return request_GET("get", endpoint);
         }
@@ -99,10 +99,10 @@ namespace BaseFramework.Rest
 
             return response;
         }
-        private HTTP_RESPONSE_GET request_GET(String requestType, String endpoint, String body = null)
+        private HTTP_RESPONSE request_GET(String requestType, String endpoint, String body = null)
         {
             WebRequest request = WebRequest.CreateHttp(baseUrl + endpoint);
-            HTTP_RESPONSE_GET response = new HTTP_RESPONSE_GET();
+            HTTP_RESPONSE response = new HTTP_RESPONSE();
             Stopwatch responseTimer = new Stopwatch();
 
             byte[] data = null;
@@ -171,9 +171,9 @@ namespace BaseFramework.Rest
 
             return output;
         }
-        private HTTP_RESPONSE_GET getResponseDetails_GET(WebRequest pwebResponse)
+        private HTTP_RESPONSE getResponseDetails_GET(WebRequest pwebResponse)
         {
-            HTTP_RESPONSE_GET output = new HTTP_RESPONSE_GET();
+            HTTP_RESPONSE output = new HTTP_RESPONSE();
 
             try
             {
@@ -181,7 +181,7 @@ namespace BaseFramework.Rest
                 using (Stream stream = webResponse.GetResponseStream())
                 using (StreamReader reader = new StreamReader(stream))
                 {
-                    output = JsonConvert.DeserializeObject<HTTP_RESPONSE_GET>(reader.ReadToEnd());
+                    output = JsonConvert.DeserializeObject<HTTP_RESPONSE>(reader.ReadToEnd());
                 }
             }
             catch (WebException ex)
@@ -212,7 +212,7 @@ namespace BaseFramework.Rest
         public Dictionary<String,String> Headers;
         public string MessageBody;
         public TimeSpan Time;
-        public User Data { get; set; }
+        public dynamic Data { get; set; }
 
         public HTTP_RESPONSE()
         {
@@ -227,36 +227,7 @@ namespace BaseFramework.Rest
             }
         }
     }
-    public class HTTP_RESPONSE_GET
-    {
-        public HttpStatusCode StatusCode = HttpStatusCode.NotAcceptable;
-        public string status
-        {
-            get { return StatusCode.ToString(); }
-            set
-            {
-                if (value == "success") { StatusCode = HttpStatusCode.OK; }
-                else { if (value == "failed") { StatusCode = HttpStatusCode.NonAuthoritativeInformation; } }
-            }
-        }
-        public Dictionary<String, String> Headers;
-        public string MessageBody;
-        public TimeSpan Time;
-        public List<User> Data { get; set; }
-
-        public HTTP_RESPONSE_GET()
-        {
-            Headers = new Dictionary<String, String>();
-        }
-
-        public void PopulateHeaders(WebHeaderCollection headersIn)
-        {
-            for (int i = 0; i < headersIn.Count; i++)
-            {
-                this.Headers.Add(headersIn.Keys[i], headersIn[i]);
-            }
-        }
-    }
+    
     #endregion
 
 }
