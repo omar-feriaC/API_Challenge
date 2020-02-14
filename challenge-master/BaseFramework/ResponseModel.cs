@@ -25,4 +25,33 @@ namespace BaseFramework.Model
     {
 
     }
+
+    public class EmployeeReq
+    {
+        public string status { get; set; }
+        public DataReq[] data;
+        //Data { get; set; }
+    }
+
+    public class DataReq
+    {
+        public string name { get; set; }
+        public string salary { get; set; }
+        public string age { get; set; }
+    }
+
+    public class EmployeeRes
+    {
+        public string status { get; set; }
+        public DataRes[] data;// { get; set; }
+        //Data { get; set; }
+    }
+    public class DataRes
+    {
+        public string id { get; set; }
+        public string employee_name { get; set; }
+        public string employee_salary { get; set; }
+        public string employee_age { get; set; }
+        public string profile_image { get; set; }
+    }
 }

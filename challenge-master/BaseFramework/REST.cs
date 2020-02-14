@@ -6,13 +6,15 @@ using System.Net;
 using System.Net.Http;
 using System.IO;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using BaseFramework.Model;
 
 namespace BaseFramework.Rest
 {
     public class Rest
     {
         private String baseUrl;
-        private Dictionary<String,String> headers;
+        private Dictionary<String, String> headers;
 
         #region REST Constructor
         public Rest(String url)
@@ -30,7 +32,7 @@ namespace BaseFramework.Rest
         public bool AddHeader(String key, String value)
         {
             try { headers.Add(key, value); return true; }
-            catch (Exception ex){ Debug.WriteLine(ex.Message);  return false; }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); return false; }
         }
         #endregion
 
@@ -117,13 +119,24 @@ namespace BaseFramework.Rest
         }
         #endregion
 
+        public string SerializeEmployeeData(DataReq pEmployeeData)
+        {
+            string strJson = JsonConvert.SerializeObject(pEmployeeData);
+            return strJson;
+        }
+        public EmployeeRes DeserializeEmployeeData(string pstrJson)
+        {
+            var emp = JsonConvert.DeserializeObject<EmployeeRes>(pstrJson);
+            return emp;
+        }
+
     }
 
     #region Http Response Class
     public class HTTP_RESPONSE
     {
         public HttpStatusCode StatusCode;
-        public Dictionary<String,String> Headers;
+        public Dictionary<String, String> Headers;
         public String MessageBody;
         public TimeSpan Time;
 
@@ -141,19 +154,4 @@ namespace BaseFramework.Rest
         }
     }
     #endregion
-
-    static class Employee
-    {
-        string Status { get; set; }
-        Data Data { get; set; }
-    }
-    
-    static class Data
-    {
-        string ID { get; set; }
-        string Name { get; set; }
-        string Salary { get; set; }
-        string Age { get; set; }
-        string ProfileImage { get; set; }
-    }
 }
