@@ -19,12 +19,11 @@ namespace Challenge.Test
                 string firstName = "Jose";
                 mainPage.fnEnterFirstN(firstName);
                 mainPage.fnEnterLastN("Novelo");
-                mainPage.fnClickB("Y");
-                mainPage.fnClickC("N");
-                mainPage.fnClickPlus("Y");
-                mainPage.fnClickP("Y");
+                mainPage.fnClickB();
+                mainPage.fnClickC(false);
+                mainPage.fnClickPlus();
+                mainPage.fnClickP();
                 mainPage.fnSelFirstDropdownOpt("5");
-                //mainPage.fnSelSecondDropdownOpt("5");
                 mainPage.fnClickSubmit();
                 string PopUpMessage = String.Format("Congratulations {0}! Everything was properly populated", firstName);
                 Assert.AreEqual(PopUpMessage, mainPage.fnReadPopUp());
@@ -41,17 +40,16 @@ namespace Challenge.Test
         {
             try
             {
-                string firstName = "Jose";
+                string firstName = "";
                 mainPage.fnEnterFirstN(firstName);
                 mainPage.fnEnterLastN("Novelo");
-                mainPage.fnClickB("Y");
-                mainPage.fnClickC("N");
-                mainPage.fnClickPlus("Y");
-                mainPage.fnClickP("Y");
+                mainPage.fnClickB();
+                mainPage.fnClickC(false);
+                mainPage.fnClickPlus();
+                mainPage.fnClickP();
                 mainPage.fnSelFirstDropdownOpt("5");
-                //mainPage.fnSelSecondDropdownOpt("5");
                 mainPage.fnClickSubmit();
-                string PopUpMessage = String.Format("Congratulations {0}! Everything was properly populated", firstName);
+                string PopUpMessage = "Please enter a first name";
                 Assert.AreEqual(PopUpMessage, mainPage.fnReadPopUp());
             }
             catch (Exception ex)
@@ -66,17 +64,16 @@ namespace Challenge.Test
         {
             try
             {
-                string firstName = "";
+                string firstName = "Jose";
                 mainPage.fnEnterFirstN(firstName);
-                mainPage.fnEnterLastN("Novelo");
-                mainPage.fnClickB("Y");
-                mainPage.fnClickC("N");
-                mainPage.fnClickPlus("Y");
-                mainPage.fnClickP("Y");
+                mainPage.fnEnterLastN("");
+                mainPage.fnClickB();
+                mainPage.fnClickC(false);
+                mainPage.fnClickPlus();
+                mainPage.fnClickP();
                 mainPage.fnSelFirstDropdownOpt("5");
-                //mainPage.fnSelSecondDropdownOpt("5");
                 mainPage.fnClickSubmit();
-                string PopUpMessage = "Please enter a first name";
+                string PopUpMessage = "Please enter a last name";
                 Assert.AreEqual(PopUpMessage, mainPage.fnReadPopUp());
             }
             catch (Exception ex)
@@ -94,14 +91,13 @@ namespace Challenge.Test
                 string firstName = "Jose";
                 mainPage.fnEnterFirstN(firstName);
                 mainPage.fnEnterLastN("");
-                mainPage.fnClickB("Y");
-                mainPage.fnClickC("N");
-                mainPage.fnClickPlus("Y");
-                mainPage.fnClickP("Y");
+                mainPage.fnClickB();
+                mainPage.fnClickC();
+                mainPage.fnClickPlus();
+                mainPage.fnClickP();
                 mainPage.fnSelFirstDropdownOpt("5");
-                //mainPage.fnSelSecondDropdownOpt("5");
                 mainPage.fnClickSubmit();
-                string PopUpMessage = "Please enter a last name";
+                string PopUpMessage = "The checkbox selection is not quite right";
                 Assert.AreEqual(PopUpMessage, mainPage.fnReadPopUp());
             }
             catch (Exception ex)
@@ -119,14 +115,13 @@ namespace Challenge.Test
                 string firstName = "Jose";
                 mainPage.fnEnterFirstN(firstName);
                 mainPage.fnEnterLastN("Novelo");
-                mainPage.fnClickB("Y");
-                mainPage.fnClickC("Y");
-                mainPage.fnClickPlus("Y");
-                mainPage.fnClickP("Y");
-                mainPage.fnSelFirstDropdownOpt("5");
-                //mainPage.fnSelSecondDropdownOpt("5");
+                mainPage.fnClickB();
+                mainPage.fnClickC(false);
+                mainPage.fnClickPlus();
+                mainPage.fnClickP();
+                mainPage.fnSelFirstDropdownOpt("4");
                 mainPage.fnClickSubmit();
-                string PopUpMessage = "The checkbox selection is not quite right";
+                string PopUpMessage = "The dropdown selection is not quite right";
                 Assert.AreEqual(PopUpMessage, mainPage.fnReadPopUp());
             }
             catch (Exception ex)
@@ -144,10 +139,10 @@ namespace Challenge.Test
                 string firstName = "Jose";
                 mainPage.fnEnterFirstN(firstName);
                 mainPage.fnEnterLastN("Novelo");
-                mainPage.fnClickB("Y");
-                mainPage.fnClickC("N");
-                mainPage.fnClickPlus("Y");
-                mainPage.fnClickP("Y");
+                mainPage.fnClickB();
+                mainPage.fnClickC(false);
+                mainPage.fnClickPlus();
+                mainPage.fnClickP();
                 mainPage.fnSelFirstDropdownOpt("5");
                 mainPage.fnSelSecondDropdownOpt("5");
                 mainPage.fnClickSubmit();

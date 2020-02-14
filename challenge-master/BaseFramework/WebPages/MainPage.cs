@@ -86,9 +86,9 @@ namespace BaseFramework.WebPages
         {
             return objBCheck;
         }
-        public void fnClickB(string pstrFlag)
+        public void fnClickB(bool pstrFlag = true)
         {
-            if (pstrFlag == "Y")
+            if (pstrFlag)
             {
                 if (objBCheck.Selected)
                 {
@@ -109,9 +109,9 @@ namespace BaseFramework.WebPages
         {
             return objCCheck;
         }
-        public void fnClickC(string pstrFlag)
+        public void fnClickC(bool pstrFlag = true)
         {
-            if (pstrFlag == "Y")
+            if (pstrFlag)
             {
                 if (objCCheck.Selected)
                 {
@@ -132,9 +132,9 @@ namespace BaseFramework.WebPages
         {
             return objPlusCheck;
         }
-        public void fnClickPlus(string pstrFlag)
+        public void fnClickPlus(bool pstrFlag = true)
         {
-            if (pstrFlag == "Y")
+            if (pstrFlag)
             {
                 if (objPlusCheck.Selected)
                 {
@@ -155,9 +155,9 @@ namespace BaseFramework.WebPages
         {
             return objPCheck;
         }
-        public void fnClickP(string pstrFlag)
+        public void fnClickP(bool pstrFlag=true)
         {
-            if (pstrFlag == "Y")
+            if (pstrFlag)
             {
                 if (objPCheck.Selected)
                 {
