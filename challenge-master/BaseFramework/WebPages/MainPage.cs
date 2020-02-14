@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace BaseFramework.WebPages
     {
         /*ATTRIBUTES*/
         //public static readonly string url = "http://ztestqa.com/selenium/mainpage.html";
+        private static string strBrowserName = ConfigurationManager.AppSettings.Get("webUrl");
         public static WebDriverWait wait;
         private IWebDriver _driver;
 
@@ -34,6 +36,10 @@ namespace BaseFramework.WebPages
         public MainPage(IWebDriver pdriver)
         {
             _driver = pdriver;
+            //_driver = new ChromeDriver();
+            //_driver.Url = strBrowserName;
+            //_driver.Manage().Window.Maximize();
+            //_driver = new clsDriver(driver);
         }
 
         /*OBJECT DEFINITION*/
@@ -52,11 +58,12 @@ namespace BaseFramework.WebPages
         //First Name TextBox
         private IWebElement GetFirstName()
         {
+            objFirstNameTxt = _driver.FindElement(By.XPath(STR_FIRSTNAME_TXT));
             return objFirstNameTxt;
         }
         public void fnEnterFirstN(string pstrFirstName)
         {
-            objFirstNameTxt = _driver.FindElement(By.XPath(STR_FIRSTNAME_TXT));
+            //objFirstNameTxt = _driver.FindElement(By.XPath(STR_FIRSTNAME_TXT));
             objFirstNameTxt.Clear();
             objFirstNameTxt.SendKeys(pstrFirstName);
         }

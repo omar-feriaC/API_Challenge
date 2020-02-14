@@ -1,28 +1,40 @@
 ﻿using System;
 using System.Configuration;
+using System.Windows;
 using BaseFramework;
 using BaseFramework.WebPages;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using NUnit.Framework;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
 namespace Challenge.Test
 {
-    [TestClass]
+    //[TestClass]
     public class Web_Tests
     {
         MainPage mainPage;
-        public static IWebDriver driver = new ChromeDriver();
+        public IWebDriver driver; //= new ChromeDriver();
+        private static string strBrowserName = ConfigurationManager.AppSettings.Get("webUrl");
+
+        [SetUp]
+        public void setUp()
+        {
+
+            driver = new ChromeDriver();
+            driver.Url = strBrowserName;
+            driver.Manage().Window.Maximize();
+            MainPage mainPage = new MainPage(driver);
+        }
 
 
-        [TestMethod]
+        [Test]
         public void MainPage_Correct_Selections_Positive()
         {
             try
             {
-                mainPage = new MainPage(driver);
+
                 string firstName = "Jose";
                 mainPage.fnEnterFirstN(firstName);
                 mainPage.fnEnterLastN("Novelo");
@@ -42,7 +54,7 @@ namespace Challenge.Test
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MainPage_First_Name_Empty()
         {
             try
@@ -66,7 +78,7 @@ namespace Challenge.Test
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MainPage_Last_Name_Empty()
         {
             try
@@ -90,7 +102,7 @@ namespace Challenge.Test
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MainPage_Wrong_CheckBox_Selected()
         {
             try
@@ -114,7 +126,7 @@ namespace Challenge.Test
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MainPage_Wrong_Dropdown_Selected_1()
         {
             try
@@ -138,7 +150,7 @@ namespace Challenge.Test
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MainPage_Wrong_Dropdown_Selected_2()
         {
             try
