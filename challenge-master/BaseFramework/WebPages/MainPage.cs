@@ -11,8 +11,6 @@ namespace BaseFramework.WebPages
 {
     public class MainPage : BaseTest
     {
-        public static readonly string url = "http://ztestqa.com/selenium/mainpage.html";
-        //private static IWebDriver _driver;
 
         public MainPage(IWebDriver driver)
         {
@@ -31,15 +29,15 @@ namespace BaseFramework.WebPages
         readonly static string STR_SUBMIT_BTN = "//button[contains(text(), 'Submit')]";
 
         //web objects
-        private static IWebElement ObjFirstNameTxt => driver.FindElement(By.Name(STR_FIRSTNAME_TXT));
-        private static IWebElement ObjLastNameTxt => driver.FindElement(By.Name(STR_LASTNAME_TXT));
-        private static IWebElement ObjBChk => driver.FindElement(By.Name(STR_B_CHK));
-        private static IWebElement ObjCChk => driver.FindElement(By.Name(STR_C_CHK));
-        private static IWebElement ObjPlusChk => driver.FindElement(By.Name(STR_PLUS_CHK));
-        private static IWebElement ObjPChk => driver.FindElement(By.Name(STR_P_CHK));
-        private static IWebElement ObjFirstDrp => driver.FindElement(By.XPath(STR_FIRST_DRP));
-        private static IWebElement ObjSecondDrp => driver.FindElement(By.XPath(STR_SECOND_DRP));
-        private static IWebElement ObjSubmitBtn => driver.FindElement(By.XPath(STR_SUBMIT_BTN));
+        private static IWebElement ObjFirstNameTxt = driver.FindElement(By.Name(STR_FIRSTNAME_TXT));
+        private static IWebElement ObjLastNameTxt = driver.FindElement(By.Name(STR_LASTNAME_TXT));
+        private static IWebElement ObjBChk = driver.FindElement(By.Name(STR_B_CHK));
+        private static IWebElement ObjCChk = driver.FindElement(By.Name(STR_C_CHK));
+        private static IWebElement ObjPlusChk = driver.FindElement(By.Name(STR_PLUS_CHK));
+        private static IWebElement ObjPChk = driver.FindElement(By.Name(STR_P_CHK));
+        private static IWebElement ObjFirstDrp = driver.FindElement(By.XPath(STR_FIRST_DRP));
+        private static IWebElement ObjSecondDrp = driver.FindElement(By.XPath(STR_SECOND_DRP));
+        private static IWebElement ObjSubmitBtn = driver.FindElement(By.XPath(STR_SUBMIT_BTN));
 
         //methods
         public static IWebElement GetFirstName()
@@ -122,6 +120,10 @@ namespace BaseFramework.WebPages
         public static string GetAlertText()
         {
             return driver.SwitchTo().Alert().Text;
+        }
+        public static void CloseAlert()
+        {
+            driver.SwitchTo().Alert().Dismiss();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Challenge.Test
             MainPage.SelectFirstDropdown("5");
             MainPage.ClickSubmitButton();
             string strActualAlertMsg = MainPage.GetAlertText();
+            MainPage.CloseAlert();
             string strExpectedAlertMsg = $"Congratulations Danny! Everything was properly populated.";
             Assert.AreEqual(strExpectedAlertMsg, strActualAlertMsg);
         }
@@ -34,6 +35,7 @@ namespace Challenge.Test
             MainPage.SelectFirstDropdown("5");
             MainPage.ClickSubmitButton();
             string strActualAlertMsg = MainPage.GetAlertText();
+            MainPage.CloseAlert();
             string strExpectedAlertMsg = $"Please enter a first name";
             Assert.AreEqual(strExpectedAlertMsg, strActualAlertMsg);
         }
@@ -48,6 +50,7 @@ namespace Challenge.Test
             MainPage.SelectFirstDropdown("5");
             MainPage.ClickSubmitButton();
             string strActualAlertMsg = MainPage.GetAlertText();
+            MainPage.CloseAlert();
             string strExpectedAlertMsg = $"Please enter a last name";
             Assert.AreEqual(strExpectedAlertMsg, strActualAlertMsg);
         }
@@ -64,6 +67,7 @@ namespace Challenge.Test
             MainPage.SelectFirstDropdown("5");
             MainPage.ClickSubmitButton();
             string strActualAlertMsg = MainPage.GetAlertText();
+            MainPage.CloseAlert();
             string strExpectedAlertMsg = $"The checkbox selection is not quite right";
             Assert.AreEqual(strExpectedAlertMsg, strActualAlertMsg);
         }
@@ -79,7 +83,8 @@ namespace Challenge.Test
             MainPage.SelectFirstDropdown("4");
             MainPage.ClickSubmitButton();
             string strActualAlertMsg = MainPage.GetAlertText();
-            string strExpectedAlertMsg = $"The checkbox selection is not quite right";
+            MainPage.CloseAlert();
+            string strExpectedAlertMsg = $"The dropdown selection is not quite right";
             Assert.AreEqual(strExpectedAlertMsg, strActualAlertMsg);
         }
         [Test]
@@ -89,13 +94,13 @@ namespace Challenge.Test
             MainPage.EnterLastName("Beltran");
             MainPage.CleanCheckboxes();
             MainPage.ClickBCheckBox();
-            MainPage.ClickCCheckBox();
             MainPage.ClickPlusCheckBox();
             MainPage.ClickPCheckBox();
             MainPage.SelectFirstDropdown("5");
             MainPage.SelectSecondDropdown("5");
             MainPage.ClickSubmitButton();
             string strActualAlertMsg = MainPage.GetAlertText();
+            MainPage.CloseAlert();
             string strExpectedAlertMsg = $"A selection was made other than the default in select list 2";
             Assert.AreEqual(strExpectedAlertMsg, strActualAlertMsg);
         }

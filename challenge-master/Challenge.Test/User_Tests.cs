@@ -5,20 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Runtime.Serialization.Json;
 using BaseFramework.Rest;
 using BaseFramework.Model;
+using NUnit.Framework;
 
 namespace Challenge.Tests
 {
-    [TestClass]
     public class User_Tests
     {
         private readonly String baseUrl = ConfigurationManager.AppSettings["baseUrl"];
         Rest rest;
 
-        [TestMethod]
+        [Test]
         public void API_GET_Test()
         {
             rest = new Rest(baseUrl);
@@ -41,7 +40,7 @@ namespace Challenge.Tests
             Assert.IsTrue(EmployeeData.data != null);
         }
 
-        [TestMethod]
+        [Test]
         public void API_POST_Test()
         {
             rest = new Rest(baseUrl);
