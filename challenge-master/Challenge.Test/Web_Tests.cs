@@ -3,7 +3,6 @@ using System.Configuration;
 using System.Windows;
 using BaseFramework;
 using BaseFramework.WebPages;
-//using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -25,8 +24,17 @@ namespace Challenge.Test
             driver = new ChromeDriver();
             driver.Url = strBrowserName;
             driver.Manage().Window.Maximize();
-            MainPage mainPage = new MainPage(driver);
+            mainPage = new MainPage(driver);
         }
+
+        //[TearDown]
+        //public static void AfterTest()
+        //{
+            
+        //    driver.Close();
+        //    driver.Quit();
+        //    MainPage mainPage = new MainPage(driver);
+        //}
 
 
         [Test]
@@ -34,7 +42,6 @@ namespace Challenge.Test
         {
             try
             {
-
                 string firstName = "Jose";
                 mainPage.fnEnterFirstN(firstName);
                 mainPage.fnEnterLastN("Novelo");
@@ -44,7 +51,7 @@ namespace Challenge.Test
                 mainPage.fnClickP();
                 mainPage.fnSelFirstDropdownOpt("5");
                 mainPage.fnClickSubmit();
-                string PopUpMessage = String.Format("Congratulations {0}! Everything was properly populated", firstName);
+                string PopUpMessage = String.Format("Congratulations {0}! Everything was properly populated.", firstName);
                 Assert.AreEqual(PopUpMessage, mainPage.fnReadPopUp());
             }
             catch (Exception ex)
@@ -109,7 +116,7 @@ namespace Challenge.Test
             {
                 string firstName = "Jose";
                 mainPage.fnEnterFirstN(firstName);
-                mainPage.fnEnterLastN("");
+                mainPage.fnEnterLastN("Novelo");
                 mainPage.fnClickB();
                 mainPage.fnClickC();
                 mainPage.fnClickPlus();
@@ -175,7 +182,12 @@ namespace Challenge.Test
             }
         }
 
-
+        //[TearDown]
+        //public void AfterTest()
+        //{
+        //    driver.Close();
+        //    driver.Quit();
+        //}
 
 
 
