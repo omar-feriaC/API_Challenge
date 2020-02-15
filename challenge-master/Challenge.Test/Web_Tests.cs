@@ -14,7 +14,7 @@ namespace Challenge.Test
     public class Web_Tests
     {
         MainPage mainPage;
-        public IWebDriver driver; //= new ChromeDriver();
+        public IWebDriver driver; 
         private static string strBrowserName = ConfigurationManager.AppSettings.Get("webUrl");
 
         [SetUp]
@@ -26,16 +26,6 @@ namespace Challenge.Test
             driver.Manage().Window.Maximize();
             mainPage = new MainPage(driver);
         }
-
-        //[TearDown]
-        //public static void AfterTest()
-        //{
-            
-        //    driver.Close();
-        //    driver.Quit();
-        //    MainPage mainPage = new MainPage(driver);
-        //}
-
 
         [Test]
         public void MainPage_Correct_Selections_Positive()

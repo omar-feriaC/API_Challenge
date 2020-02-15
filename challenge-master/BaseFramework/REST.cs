@@ -69,7 +69,6 @@ namespace BaseFramework.Rest
             if (!String.IsNullOrEmpty(body))
             {
                 data = Encoding.UTF8.GetBytes(body);
-                //Stream stream = request.GetRequestStream();
                 using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                 {
                     streamWriter.Write(body);
@@ -116,11 +115,6 @@ namespace BaseFramework.Rest
                 output.StatusCode = webResponse.StatusCode;
                 output.MessageBody = resultCreated;
             }
-
-            //output.StatusCode = webResponse.StatusCode;
-            //output.MessageBody = webResponse.
-            //We should probably pull the Http status code and message body out of the webresposne in here
-            //and put it in the HTTP_RESPONSE object.
 
             return output;
 
