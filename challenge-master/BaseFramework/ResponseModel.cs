@@ -4,7 +4,6 @@ using System.Text;
 
 namespace BaseFramework.Model
 {
-    //We probably want to create data models for our different responses
     public class User
     {
         public UInt64 _id;

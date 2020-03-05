@@ -24,10 +24,6 @@ namespace Challenge.Test
             LoginPage.EnterFirstName("Testing");
             LoginPage.EnterLastName("QA");
             LoginPage.CleanButtons();
-            //Thread.Sleep(TimeSpan.FromSeconds(5));
-            //LoginPage.SelectCheckButton(new string[] { LoginPage.CHECKBUTTONB_BUTTON });
-            //LoginPage.SelectCheckButton(new string[] { LoginPage.CHECKBUTTONPLUS_BUTTON });
-            //LoginPage.SelectCheckButton(new string[] { LoginPage.CHECKBUTTONP_BUTTON});
             LoginPage.ClickBBox();
             LoginPage.ClickPlusBox();
             LoginPage.ClickPBox();
@@ -42,7 +38,6 @@ namespace Challenge.Test
             LoginPage.EnterFirstName("");
             LoginPage.EnterLastName("QA");
             LoginPage.CleanButtons();
-            //Thread.Sleep(TimeSpan.FromSeconds(5));
             LoginPage.ClickBBox();
             LoginPage.ClickPlusBox();
             LoginPage.ClickPBox();
@@ -58,7 +53,6 @@ namespace Challenge.Test
             LoginPage.EnterFirstName("Testing");
             LoginPage.EnterLastName("");
             LoginPage.CleanButtons();
-            //Thread.Sleep(TimeSpan.FromSeconds(5));
             LoginPage.ClickBBox();
             LoginPage.ClickPlusBox();
             LoginPage.ClickPBox();
@@ -74,7 +68,6 @@ namespace Challenge.Test
             LoginPage.EnterFirstName("Testing");
             LoginPage.EnterLastName("QA");
             LoginPage.CleanButtons();
-            //Thread.Sleep(TimeSpan.FromSeconds(5));
             LoginPage.ClickBBox();
             LoginPage.ClickPlusBox();
             LoginPage.ClickPBox();
@@ -91,7 +84,6 @@ namespace Challenge.Test
             LoginPage.EnterFirstName("Testing");
             LoginPage.EnterLastName("QA");
             LoginPage.CleanButtons();
-            //Thread.Sleep(TimeSpan.FromSeconds(5));
             LoginPage.ClickBBox();
             LoginPage.ClickPlusBox();
             LoginPage.ClickPBox();
@@ -107,7 +99,6 @@ namespace Challenge.Test
             LoginPage.EnterFirstName("Testing");
             LoginPage.EnterLastName("QA");
             LoginPage.CleanButtons();
-            //Thread.Sleep(TimeSpan.FromSeconds(5));
             LoginPage.ClickBBox();
             LoginPage.ClickPlusBox();
             LoginPage.ClickPBox();

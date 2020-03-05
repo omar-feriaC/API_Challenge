@@ -101,8 +101,6 @@ namespace BaseFramework.Rest
         {
             HTTP_RESPONSE output = new HTTP_RESPONSE();
 
-            //We should probably pull the Http status code and message body out of the webresposne in here
-            //and put it in the HTTP_RESPONSE object.
             StreamReader reader;
             using (var dataStream = webResponse.GetResponseStream())
             {

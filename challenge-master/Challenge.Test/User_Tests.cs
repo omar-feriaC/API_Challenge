@@ -26,7 +26,6 @@ namespace Challenge.Tests
             HTTP_RESPONSE resp = rest.GET(endpoint);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
             res = new Rest(endpoint);
-            //We should probably do some more assertions here on the response to check that our GET request was successful.
             Console.WriteLine(resp.MessageBody);
             EmployeeGet EmpGetDesSerialized = JsonConvert.DeserializeObject<EmployeeGet>(resp.MessageBody);
             for (int i = 0; i < EmpGetDesSerialized.data.Count ; i++)
@@ -60,7 +59,6 @@ namespace Challenge.Tests
             string serUser = JsonConvert.SerializeObject(user);
 
             HTTP_RESPONSE resp = rest.POST(endpoint, serUser);
-            //Need some assertions here to check the response.
             Console.WriteLine(resp.MessageBody);
         }
 
