@@ -51,7 +51,6 @@ namespace BaseFramework.Rest
         #region HTTP Request Generator
         private HTTP_RESPONSE request(String requestType, String endpoint, String body = null)
         {
-
             HttpWebRequest request = WebRequest.CreateHttp(baseUrl + endpoint);
             HTTP_RESPONSE response = new HTTP_RESPONSE();
             Stopwatch responseTimer = new Stopwatch();
@@ -66,7 +65,15 @@ namespace BaseFramework.Rest
 
             if (!String.IsNullOrEmpty(body))
             {
-               //We should probably add our body to the request's content here
+                //We should probably add our body to the request's content here
+                data = ASCIIEncoding.ASCII.GetBytes(body);
+                request.ContentLength = data.Length;
+
+                using (var streamWriter = request.GetRequestStream())
+                {
+                    streamWriter.Write(data, 0, data.Length);
+                    streamWriter.Close();
+                }
             }
 
             responseTimer.Start();
@@ -98,7 +105,13 @@ namespace BaseFramework.Rest
 
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
-
+            using (var streamWriter = webResponse.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(streamWriter);
+                string response2 = reader.ReadToEnd();
+                output.StatusCode = webResponse.StatusCode;
+                output.MessageBody = response2;
+            }
             return output;
         }
         #endregion
@@ -127,5 +140,4 @@ namespace BaseFramework.Rest
         }
     }
     #endregion
-
 }
