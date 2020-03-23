@@ -25,7 +25,7 @@ namespace BaseFramework.Model
     {
 
     }
-
+    //MODEL FOR GET CALL
     public class Employee
     {
         public string id { get; set; }
@@ -39,6 +39,7 @@ namespace BaseFramework.Model
         public string status { get; set; }
         public List<Employee> data { get; set; }
     }
+    //MODEL FOR POST CALL
     public class pUser
     {
         public string name { get; set; }

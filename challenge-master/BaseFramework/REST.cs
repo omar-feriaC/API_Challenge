@@ -71,18 +71,20 @@ namespace BaseFramework.Rest
             request.ContentType = "application/json";
             request.KeepAlive = false; //keep connected            
            
-                                                       //Header content-type: ap js | host: url
+            //Header content-type: ap js | host: url | No idea what is this for...
             foreach (KeyValuePair<String, String> kvp in headers)
-                request.Headers.Add(kvp.Key, kvp.Value);
+             request.Headers.Add(kvp.Key, kvp.Value);
 
-            if (!String.IsNullOrEmpty(body))//I dont know what is this for. 
+            //CHECK IF THE CALL IS FROM POST
+            if (!String.IsNullOrEmpty(body)) 
             {
+                // GetRequestStream  method to return a stream instance
                 ASCIIEncoding encoding = new ASCIIEncoding();
+                // Create a new string object to POST data to the Url.
                 data = encoding.GetBytes(body);
                 // Set the content length of the string being posted.
                 request.ContentLength = data.Length;
                 Stream newStream = request.GetRequestStream();
-
                 newStream.Write(data, 0, data.Length);
                 // Close the Stream object.
                 newStream.Close();
@@ -117,7 +119,9 @@ namespace BaseFramework.Rest
         {
             HTTP_RESPONSE output = new HTTP_RESPONSE();
             
-            GetResponse response;
+            //RESPOSE MODELS VARIABLES FOR GET AND POST
+            GetResponse getResponse;
+            PostResponse postResponse;
 
             using (DataStream = webResponse.GetResponseStream())
             {
@@ -125,23 +129,31 @@ namespace BaseFramework.Rest
                 Payload = DataReader.ReadToEnd();               
                 output.StatusCode = webResponse.StatusCode;
                 output.MessageBody = Payload;
-
-                //response = JsonConvert.DeserializeObject<GetResponse>(Payload);
-                
             }
             webResponse.Close();
-
-            Console.WriteLine(Payload);
-            //Console.WriteLine($"Status is: {response.status}");
-            //foreach (Employee employee in response.data)
-            //{
-            //    Console.WriteLine($"id: {employee.id}, Name: {employee.employee_name}, Age: {employee.employee_age}");
-            //}
+            //TO DESERIALIZE CHECK THE METHOD CALL FOR POST OR GET
+            if (webResponse.Method == "POST")
+            {
+                postResponse = JsonConvert.DeserializeObject<PostResponse>(Payload);
+                Console.WriteLine($"Status is: {postResponse.status}");
+                Console.WriteLine($"id: {postResponse.data.id}, Name: {postResponse.data.name}, Age: {postResponse.data.age}");
+            }
+            else
+            {
+                getResponse = JsonConvert.DeserializeObject<GetResponse>(Payload);
+                Console.WriteLine($"Status is: {getResponse.status}");
+                foreach (Employee employee in getResponse.data)
+                {
+                    Console.WriteLine($"id: {employee.id}, Name: {employee.employee_name}, Age: {employee.employee_age}");
+                }
+            }
+            //Console.WriteLine(Payload);
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
             return output;
         }
         #endregion
+
     }
 
     #region Http Response Class

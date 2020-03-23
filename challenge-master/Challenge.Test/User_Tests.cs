@@ -25,7 +25,9 @@ namespace Challenge.Tests
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
-            //We should probably do some more assertions here on the response to check that our GET request was successful.
+            Assert.IsNotNull(resp.MessageBody);
+           
+            ////We should probably do some more assertions here on the response to check that our GET request was successful.
         }
 
 
@@ -41,9 +43,12 @@ namespace Challenge.Tests
             string serlzUser = JsonConvert.SerializeObject(user);
 
             Rest rest = new Rest(baseUrl);
-            //HTTP_RESPONSE resp = rest.POST(endpoint, "");
-                                          //(end url, data from Post method)
+            
+            //(end url, data from Post method)
             HTTP_RESPONSE resp = rest.POST(endpoint, serlzUser);
+            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
+            Assert.IsNotNull(resp.MessageBody);
+
             //Need some assertions here to check the response.
         }
 
