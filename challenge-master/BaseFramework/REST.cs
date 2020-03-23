@@ -75,20 +75,13 @@ namespace BaseFramework.Rest
                     streamWriter.Close();
                 }
             }
-
-
-
-
-          
-
+                                          
             responseTimer.Start();
             try
             {
                 using (HttpWebResponse webResponse = (HttpWebResponse)request.GetResponse())
                     response = getResponseDetails(webResponse);
-                    
-
-
+            
                 response.Time = responseTimer.Elapsed;
             }
             catch (WebException exception)
@@ -109,9 +102,6 @@ namespace BaseFramework.Rest
         private HTTP_RESPONSE getResponseDetails(HttpWebResponse webResponse)
         {
             HTTP_RESPONSE output = new HTTP_RESPONSE();
-
-            //We should probably pull the Http status code and message body out of the webresponse in here
-            //and put it in the HTTP_RESPONSE object.
 
 
             using (var streamWriter = webResponse.GetResponseStream())

@@ -16,16 +16,12 @@ namespace BaseFramework.Model
     {
 
         public String name;
-           
         public String salary;
-
         public String age;
-
         public String id;
 
     }
-   
- 
+
     public class Task
     {
         public string task;

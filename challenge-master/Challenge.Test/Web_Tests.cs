@@ -13,12 +13,12 @@ namespace Challenge.Test
         public IWebDriver driver;
         public MainPage objmainPage;
         private static string strBrowserName = ConfigurationManager.AppSettings.Get("url");
-        string expectedSuccessMessage = "Congratulations Luis! Everything was properly populated.";
-        string expectedErrorMessage1 = "Please enter a first name";
-        string expectedErrorMessage2 = "Please enter a last name";
-        string expectedErrorMessage3 = "The checkbox selection is not quite right";
-        string expectedErrorMessage4 = "The dropdown selection is not quite right";
-        string expectedErrorMessage5 = "A selection was made other than the default in select list 2";
+        string expectedSuccessMessage = "Congratulations Jesus! Everything was properly populated.";
+        string expectedErrorMessage1 = "Enter a first name";
+        string expectedErrorMessage2 = "Enter a last name";
+        string expectedErrorMessage3 = "The checkbox  is not quite right";
+        string expectedErrorMessage4 = "The dropdown is not quite right";
+        string expectedErrorMessage5 = "A selection was made other than the default in select list";
 
         [SetUp]
         public void OpenBrowser()
@@ -33,10 +33,8 @@ namespace Challenge.Test
         [Test]
         public void MainPage_HappyPath()
         {
-
-
-                objmainPage.InsertFirstName("Luis");
-                objmainPage.InsertLastName("Esperon");
+                objmainPage.InsertFirstName("Jesus");
+                objmainPage.InsertLastName("Sanchez");
                 objmainPage.clickBCheckbox();
                 objmainPage.clickPlusCheckbox();
                 objmainPage.clickPCheckbox();
@@ -45,32 +43,26 @@ namespace Challenge.Test
                 objmainPage.clickSubmitButton();
                 string messagefrompage = objmainPage.ConfirmationWindow(expectedSuccessMessage);
                 Assert.AreEqual(expectedSuccessMessage, messagefrompage);
-            
         }
 
         [Test]
         public void Negative_FirstNameEmpty()
         {
-           
-              
-                objmainPage.InsertLastName("Esperon");
-                objmainPage.clickBCheckbox();
-                objmainPage.clickPlusCheckbox();
-                objmainPage.clickPCheckbox();
-                objmainPage.selectDropDownOption1("5");
-                objmainPage.selectDropDownOption2("");
-                objmainPage.clickSubmitButton();
-                string messagefrompage = objmainPage.ConfirmationWindow(expectedErrorMessage1);
-                Assert.AreEqual(expectedErrorMessage1, messagefrompage);
-            
-           
+            objmainPage.InsertLastName("Sanchez");
+            objmainPage.clickBCheckbox();
+            objmainPage.clickPlusCheckbox();
+            objmainPage.clickPCheckbox();
+            objmainPage.selectDropDownOption1("5");
+            objmainPage.selectDropDownOption2("");
+            objmainPage.clickSubmitButton();
+            string messagefrompage = objmainPage.ConfirmationWindow(expectedErrorMessage1);
+            Assert.AreEqual(expectedErrorMessage1, messagefrompage);
         }
 
         [Test]
         public void Negative_LastNameEmpty()
         {
-               
-                objmainPage.InsertFirstName("Luis");
+                objmainPage.InsertFirstName("Jesus");
                 objmainPage.clickBCheckbox();
                 objmainPage.clickPlusCheckbox();
                 objmainPage.clickPCheckbox();
@@ -79,16 +71,14 @@ namespace Challenge.Test
                 objmainPage.clickSubmitButton();
                 string messagefrompage = objmainPage.ConfirmationWindow(expectedErrorMessage2);
                 Assert.AreEqual(expectedErrorMessage2, messagefrompage);
-            
-           
         }
 
         [Test]
         public void Negative_WrongCheckBox()
         {
                 
-                objmainPage.InsertFirstName("Luis");
-                objmainPage.InsertLastName("Esperon");
+                objmainPage.InsertFirstName("Jesus");
+                objmainPage.InsertLastName("Sanchez");
                 objmainPage.clickBCheckbox();
                 objmainPage.clickCCheckbox();
                 objmainPage.clickPlusCheckbox();
@@ -106,8 +96,8 @@ namespace Challenge.Test
         {
             
                
-                objmainPage.InsertFirstName("Luis");
-                objmainPage.InsertLastName("Esperon");
+                objmainPage.InsertFirstName("Jesus");
+                objmainPage.InsertLastName("Sanchez");
                 objmainPage.clickBCheckbox();
                 objmainPage.clickPlusCheckbox();
                 objmainPage.clickPCheckbox();
@@ -123,8 +113,8 @@ namespace Challenge.Test
         public void Negative_WrongOption_SecondDropdown()
         {
                 
-                objmainPage.InsertFirstName("Luis");
-                objmainPage.InsertLastName("Esperon");
+                objmainPage.InsertFirstName("Jesus");
+                objmainPage.InsertLastName("Sanchez");
                 objmainPage.clickBCheckbox();
                 objmainPage.clickPlusCheckbox();
                 objmainPage.clickPCheckbox();

@@ -24,8 +24,8 @@ namespace Challenge.Tests
             String endpoint = "/api/v1/employees";
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
-            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
-            StringAssert.Contains(resp.MessageBody, "success", "Response did not come with a success status");
+            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status  {HttpStatusCode.OK}, Received {resp.StatusCode}");
+            StringAssert.Contains(resp.MessageBody, "Success", "The answer failed");
             Console.WriteLine(resp.MessageBody);
         }
 
@@ -49,7 +49,7 @@ namespace Challenge.Tests
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.POST(endpoint, json);
             Employee json2 = JsonConvert.DeserializeObject<Employee>(resp.MessageBody);
-            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
+            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status  {HttpStatusCode.OK}, Received {resp.StatusCode}");
             Assert.AreEqual("success",json2.status);
             Assert.AreEqual("test", json2.data.name);
             Assert.AreEqual("123", json2.data.salary);
