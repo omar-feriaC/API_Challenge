@@ -25,4 +25,31 @@ namespace BaseFramework.Model
     {
 
     }
+
+    public class Employee
+    {
+        public string id { get; set; }
+        public string employee_name { get; set; }
+        public string employee_salary { get; set; }
+        public string employee_age { get; set; }
+        public string profile_image { get; set; }
+    }
+    public class GetResponse
+    {
+        public string status { get; set; }
+        public List<Employee> data { get; set; }
+    }
+    public class pUser
+    {
+        public string name { get; set; }
+        public string salary { get; set; }
+        public string age { get; set; }
+        public string id { get; set; }
+    }
+    public class PostResponse
+    {
+        public string status { get; set; }
+        public pUser data { get; set; }
+    }
+
 }

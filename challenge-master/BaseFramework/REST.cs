@@ -6,19 +6,27 @@ using System.Net;
 using System.Net.Http;
 using System.IO;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using BaseFramework.Model;
 
 namespace BaseFramework.Rest
 {
     public class Rest
     {
+
         private String baseUrl;
         private Dictionary<String,String> headers;
+
+        string Payload;
+        Stream DataStream;
+        StreamReader DataReader;
+        StreamWriter DataWriter;
 
         #region REST Constructor
         public Rest(String url)
         {
             this.baseUrl = url;
-            headers = new Dictionary<String, String>();
+            headers = new Dictionary<String, String>(); //header??
         }
         #endregion
 
@@ -44,6 +52,7 @@ namespace BaseFramework.Rest
         #region POST Request
         public HTTP_RESPONSE POST(String endpoint, String data)
         {
+           
             return request("POST", endpoint, data);
         }
         #endregion
@@ -51,22 +60,38 @@ namespace BaseFramework.Rest
         #region HTTP Request Generator
         private HTTP_RESPONSE request(String requestType, String endpoint, String body = null)
         {
-
+           
+            // Create a request for the URL 
             HttpWebRequest request = WebRequest.CreateHttp(baseUrl + endpoint);
             HTTP_RESPONSE response = new HTTP_RESPONSE();
             Stopwatch responseTimer = new Stopwatch();
 
             byte[] data = null;
-            request.Method = requestType;
+            request.Method = requestType; //Method type: GET/POST
             request.ContentType = "application/json";
-            request.KeepAlive = false;
-
+            request.KeepAlive = false; //keep connected            
+           
+                                                       //Header content-type: ap js | host: url
             foreach (KeyValuePair<String, String> kvp in headers)
                 request.Headers.Add(kvp.Key, kvp.Value);
 
-            if (!String.IsNullOrEmpty(body))
+            if (!String.IsNullOrEmpty(body))//I dont know what is this for. 
             {
-               //We should probably add our body to the request's content here
+                
+                //We should probably add our body to the request's content here
+            }
+
+            if (request.Method == "POST" && body != string.Empty)
+            {
+                using (DataStream = request.GetRequestStream())
+                {
+                    DataWriter = new StreamWriter(DataStream);
+                    DataWriter.Write(body);
+                    DataWriter.Flush();
+                }
+
+               // response = (HttpWebResponse)request.GetResponse();
+
             }
 
             responseTimer.Start();
@@ -95,14 +120,33 @@ namespace BaseFramework.Rest
         private HTTP_RESPONSE getResponseDetails(HttpWebResponse webResponse)
         {
             HTTP_RESPONSE output = new HTTP_RESPONSE();
+            
+            GetResponse response;
 
+            using (DataStream = webResponse.GetResponseStream())
+            {
+                DataReader = new StreamReader(DataStream);
+                 Payload = DataReader.ReadToEnd();
+                //string body = output.MessageBody;
+                //body = DataReader.ReadToEnd();
+                output.StatusCode = webResponse.StatusCode;
+                output.MessageBody = Payload;
+                response = JsonConvert.DeserializeObject<GetResponse>(Payload);
+                //response = JsonConvert.DeserializeObject<GetResponse>(body);
+
+
+            }
+            webResponse.Close();            
+            Console.WriteLine($"Status is: {response.status}");
+            foreach (Employee employee in response.data)
+            {
+                Console.WriteLine($"id: {employee.id}, Name: {employee.employee_name}, Age: {employee.employee_age}");
+            }
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
-
             return output;
         }
         #endregion
-
     }
 
     #region Http Response Class
