@@ -60,7 +60,7 @@ namespace BaseFramework.Rest
 
             byte[] data = null;
             request.Method = requestType;
-            request.ContentType = "application/json; charset=utf-8";
+            request.ContentType = "application/json";
             request.KeepAlive = false;
 
             foreach (KeyValuePair<String, String> kvp in headers)
@@ -71,7 +71,7 @@ namespace BaseFramework.Rest
                 //We should probably add our body to the request's content here
                 using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                 {
-                    request.ContentType = Encoding.UTF8.GetString(data);
+                    //request.ContentType = Encoding.UTF8.GetString(data);
                     streamWriter.Write(body);
                     streamWriter.Flush();
                 }
@@ -100,7 +100,7 @@ namespace BaseFramework.Rest
             return response;
         }
 
-        private HTTP_RESPONSE getResponseDetails(HttpWebResponse webResponse)
+        public HTTP_RESPONSE getResponseDetails(HttpWebResponse webResponse)
         {
             HTTP_RESPONSE output = new HTTP_RESPONSE();
             //We should probably pull the Http status code and message body out of the webresposne in here
