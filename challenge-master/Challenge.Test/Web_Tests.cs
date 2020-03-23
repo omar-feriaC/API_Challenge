@@ -14,11 +14,11 @@ namespace Challenge.Test
         public MainPage objmainPage;
         private static string strBrowserName = ConfigurationManager.AppSettings.Get("url");
         string expectedSuccessMessage = "Congratulations Jesus! Everything was properly populated.";
-        string expectedErrorMessage1 = "Enter a first name";
-        string expectedErrorMessage2 = "Enter a last name";
-        string expectedErrorMessage3 = "The checkbox  is not quite right";
-        string expectedErrorMessage4 = "The dropdown is not quite right";
-        string expectedErrorMessage5 = "A selection was made other than the default in select list";
+        string expectedErrorMessage1 = "Please enter a first name";
+        string expectedErrorMessage2 = "Please enter a last name";
+        string expectedErrorMessage3 = "The checkbox selection is not quite right";
+        string expectedErrorMessage4 = "The dropdown selection is not quite right";
+        string expectedErrorMessage5 = "A selection was made other than the default in select list 2";
 
         [SetUp]
         public void OpenBrowser()

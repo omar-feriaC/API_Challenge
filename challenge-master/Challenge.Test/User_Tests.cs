@@ -25,8 +25,8 @@ namespace Challenge.Tests
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status  {HttpStatusCode.OK}, Received {resp.StatusCode}");
+            StringAssert.Contains(resp.MessageBody, "success", "The answer failed");
             Console.WriteLine(resp.MessageBody);
-
         }
 
         [TestMethod]
