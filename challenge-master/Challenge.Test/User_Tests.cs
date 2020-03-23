@@ -26,6 +26,7 @@ namespace Challenge.Tests
             HTTP_RESPONSE resp = rest.GET(endpoint);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status  {HttpStatusCode.OK}, Received {resp.StatusCode}");
             Console.WriteLine(resp.MessageBody);
+
         }
 
         [TestMethod]
