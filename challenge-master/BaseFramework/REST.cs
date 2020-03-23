@@ -6,6 +6,8 @@ using System.Net;
 using System.Net.Http;
 using System.IO;
 using System.Diagnostics;
+using BaseFramework.Model;
+using Newtonsoft.Json;
 
 namespace BaseFramework.Rest
 {
@@ -58,7 +60,7 @@ namespace BaseFramework.Rest
 
             byte[] data = null;
             request.Method = requestType;
-            request.ContentType = "application/json";
+            request.ContentType = "application/json; charset=utf-8";
             request.KeepAlive = false;
 
             foreach (KeyValuePair<String, String> kvp in headers)
@@ -66,7 +68,13 @@ namespace BaseFramework.Rest
 
             if (!String.IsNullOrEmpty(body))
             {
-               //We should probably add our body to the request's content here
+                //We should probably add our body to the request's content here
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    request.ContentType = Encoding.UTF8.GetString(data);
+                    streamWriter.Write(body);
+                    streamWriter.Flush();
+                }
             }
 
             responseTimer.Start();
@@ -95,10 +103,14 @@ namespace BaseFramework.Rest
         private HTTP_RESPONSE getResponseDetails(HttpWebResponse webResponse)
         {
             HTTP_RESPONSE output = new HTTP_RESPONSE();
-
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
-
+            using (var dataReader = new StreamReader(webResponse.GetResponseStream()))
+            {
+                output.StatusCode = webResponse.StatusCode;
+                output.MessageBody = dataReader.ReadToEnd();
+            }
+                
             return output;
         }
         #endregion

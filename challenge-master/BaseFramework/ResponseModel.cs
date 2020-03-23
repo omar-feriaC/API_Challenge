@@ -8,10 +8,26 @@ namespace BaseFramework.Model
     public class User
     {
         public UInt64 _id;
-        public String Name;
-        public String Salary;
-        public String Age;
+        public string Name;
+        public string Salary;
+        public string Age;
     }
+
+    public class Employee
+    {
+        public string id { get; set; }
+        public string employee_name { get; set; }
+        public string employee_salary { get; set; }
+        public string employee_age { get; set; }
+        public string profile_image { get; set; }
+    }
+
+    public class GetResponse
+    {
+        public string status { get; set; }
+        public List<Employee> data { get; set; }
+    }
+
     public class Error
     {
 
