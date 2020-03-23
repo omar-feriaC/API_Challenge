@@ -14,7 +14,7 @@ namespace BaseFramework.Model
     }
     public class Error
     {
-
+        public String error;
     }
     public class Task
     {
@@ -23,6 +23,13 @@ namespace BaseFramework.Model
     }
     public class Message
     {
-
+        public String message;
     }
+
+    public class GetResponse
+    {
+        public string status { get; set; }
+        public List<Employee> data { get; set; }
+    }
+
 }
