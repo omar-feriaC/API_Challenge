@@ -12,6 +12,21 @@ namespace BaseFramework.Model
         public String Salary;
         public String Age;
     }
+
+    public class Employee
+    {
+        public String status;
+        public Data data;
+
+    }
+
+    public class Data
+    {
+        public String name;
+        public String salary;
+        public String age;
+        public String id;
+    }
     public class Error
     {
 
