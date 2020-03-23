@@ -77,21 +77,17 @@ namespace BaseFramework.Rest
 
             if (!String.IsNullOrEmpty(body))//I dont know what is this for. 
             {
-                
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                data = encoding.GetBytes(body);
+                // Set the content length of the string being posted.
+                request.ContentLength = data.Length;
+                Stream newStream = request.GetRequestStream();
+
+                newStream.Write(data, 0, data.Length);
+                // Close the Stream object.
+                newStream.Close();
+
                 //We should probably add our body to the request's content here
-            }
-
-            if (request.Method == "POST" && body != string.Empty)
-            {
-                using (DataStream = request.GetRequestStream())
-                {
-                    DataWriter = new StreamWriter(DataStream);
-                    DataWriter.Write(body);
-                    DataWriter.Flush();
-                }
-
-               // response = (HttpWebResponse)request.GetResponse();
-
             }
 
             responseTimer.Start();
@@ -126,22 +122,21 @@ namespace BaseFramework.Rest
             using (DataStream = webResponse.GetResponseStream())
             {
                 DataReader = new StreamReader(DataStream);
-                 Payload = DataReader.ReadToEnd();
-                //string body = output.MessageBody;
-                //body = DataReader.ReadToEnd();
+                Payload = DataReader.ReadToEnd();               
                 output.StatusCode = webResponse.StatusCode;
                 output.MessageBody = Payload;
-                response = JsonConvert.DeserializeObject<GetResponse>(Payload);
-                //response = JsonConvert.DeserializeObject<GetResponse>(body);
 
+                //response = JsonConvert.DeserializeObject<GetResponse>(Payload);
+                
+            }
+            webResponse.Close();
 
-            }
-            webResponse.Close();            
-            Console.WriteLine($"Status is: {response.status}");
-            foreach (Employee employee in response.data)
-            {
-                Console.WriteLine($"id: {employee.id}, Name: {employee.employee_name}, Age: {employee.employee_age}");
-            }
+            Console.WriteLine(Payload);
+            //Console.WriteLine($"Status is: {response.status}");
+            //foreach (Employee employee in response.data)
+            //{
+            //    Console.WriteLine($"id: {employee.id}, Name: {employee.employee_name}, Age: {employee.employee_age}");
+            //}
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
             return output;

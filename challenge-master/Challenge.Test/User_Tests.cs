@@ -32,11 +32,11 @@ namespace Challenge.Tests
         [TestMethod]
         public void API_POST_Test()
         {
-            String endpoint = "/api/v1/create/";
-            User user = new User();
-            user.Name = "Jon";
-            user.Salary = "10";
-            user.Age = "21";
+            String endpoint = "/api/v1/create";
+            pUser user = new pUser();
+            user.name = "Jon";
+            user.salary = "10";
+            user.age = "21";
 
             string serlzUser = JsonConvert.SerializeObject(user);
 
