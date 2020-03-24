@@ -20,7 +20,7 @@ namespace Challenge.Tests
         {
             String endpoint = "/api/v1/employee/2";
             clsRest objRest = new clsRest(baseUrl);
-            HTTP_RESPONSE resp = objRest.GET(endpoint);
+            clsHTTP_RESPONSE resp = objRest.fnGET(endpoint);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
             //We should probably do some more assertions here on the response to check that our GET request was successful.
         }
@@ -34,7 +34,7 @@ namespace Challenge.Tests
             user.Age = "";
             //Rest rest = new Rest(baseUrl);
             clsRest objRest = new clsRest(baseUrl);
-            HTTP_RESPONSE resp = rest.POST(endpoint, "");
+            clsHTTP_RESPONSE resp = objRest.fnPOST(endpoint, "");
             //Need some assertions here to check the response.
         }
 

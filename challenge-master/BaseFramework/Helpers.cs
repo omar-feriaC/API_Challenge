@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using BaseFramework.Model;
-using BaseFramework.Rest;
+using BaseFramework.clsRest;
 
 namespace BaseFramework.Helpers
 {

@@ -29,7 +29,7 @@ namespace BaseFramework.Model
     public class GetResponse
     {
         public string status { get; set; }
-        public List<Employee> data { get; set; }
+        //public List<Employee> data { get; set; }
     }
 
 }

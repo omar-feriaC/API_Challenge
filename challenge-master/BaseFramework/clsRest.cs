@@ -20,7 +20,7 @@ namespace BaseFramework.clsRest
         StreamReader DataReader;
         StreamWriter DataWriter;
 
-        HttpWebResponse HttpResponse;
+        //HttpWebResponse HttpResponse;
 
         #region REST Constructor
         public clsRest(String pstrurl)
@@ -99,23 +99,18 @@ namespace BaseFramework.clsRest
         }
         private clsHTTP_RESPONSE fnGetResponseDetails(HttpWebResponse pwebResponse)
         {
-
             clsHTTP_RESPONSE objOutput = new clsHTTP_RESPONSE();
-
-            string Payload;
-            
             //We should probably pull the Http status code and 
             //message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
             using (DataStream = pwebResponse.GetResponseStream())
             {
                 DataReader = new StreamReader(DataStream);
-                Payload = DataReader.ReadToEnd();
-                
+                string Payload = DataReader.ReadToEnd();
+                objOutput.StatusCode = pwebResponse.StatusCode;
+                objOutput.strMessageBody = Payload;
             }
-            pwebResponse.Close();
-
-
+            //pwebResponse.Close();
             return objOutput;
         }
         #endregion
