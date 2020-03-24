@@ -9,8 +9,8 @@ namespace BaseFramework.Model
     {
         public UInt64 _id;
         public string Name;
-        public string Salary;
-        public string Age;
+        public double Salary;
+        public int Age;
     }
 
     public class Employee

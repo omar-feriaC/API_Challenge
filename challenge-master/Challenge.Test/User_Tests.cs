@@ -50,14 +50,26 @@ namespace Challenge.Tests
         [TestMethod]
         public void API_POST_Test()
         {
-            String endpoint = "/api/v1/create/";
-            User user = new User();
-            user.Name = "";
-            user.Salary = "";
-            user.Age = "";
-            Rest rest = new Rest(baseUrl);
-            //HTTP_RESPONSE resp = rest.POST(endpoint, "{ \"name\":\"" + pstrName + "\",\"salary\":\"" + pdblSalary + "\",\"age\":\"" + pintAge + "\"}");
-            //Need some assertions here to check the response.
+            try
+            {
+                String endpoint = "/api/v1/create";
+                User user = new User();
+                user.Name = "Alex TunP";
+                user.Salary = 456000.50;
+                user.Age = 87;
+                Rest rest = new Rest(baseUrl);
+                HTTP_RESPONSE resp = rest.POST(endpoint, "{\"name\":\"" + user.Name + "\",\"salary\":\"" + user.Salary + "\",\"age\":\"" + user.Age + "\"}");
+                Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
+                //Need some assertions here to check the response.
+               
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("+++++++++++Test Case has failed.+++++++++++");
+                Console.WriteLine(ex);
+                Assert.Fail("Execution has failed", ex);
+            }
+            
         }
 
     }
