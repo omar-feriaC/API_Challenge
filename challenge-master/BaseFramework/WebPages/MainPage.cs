@@ -12,7 +12,7 @@ namespace BaseFramework.WebPages
     public class MainPage
     {
 
-        private IWebDriver driver2;
+        private IWebDriver objDriver2;
 
         readonly static string FIRSTNAME = "_fNameInput";
         readonly static string LASTNAME = "_lNameInput";
@@ -23,23 +23,23 @@ namespace BaseFramework.WebPages
         readonly static string DROPDOWN1 = "//div[@name='selOpt']//select";
         readonly static string DROPDOWN2 = "//div[@name='noSel']//select";
         readonly static string SUBMITBTN = "//button[text()='Submit']";
-        private IWebElement objFirstName => driver2.FindElement(By.Id(FIRSTNAME));
-        private IWebElement objLastName => driver2.FindElement(By.Id(LASTNAME));
-        private IWebElement objCheckBoxB => driver2.FindElement(By.Id(CHECKBOXB));
-        private IWebElement objCheckBoxC => driver2.FindElement(By.Id(CHECKBOXC));
-        private IWebElement objCheckBoxPlus => driver2.FindElement(By.Id(CHECKBOXPLUS));
-        private IWebElement objCheckBoxP => driver2.FindElement(By.Id(CHECKBOXP));
-        private IWebElement objDropDown1 => driver2.FindElement(By.XPath(DROPDOWN1));
-        private IWebElement objDropDown2 => driver2.FindElement(By.XPath(DROPDOWN2));
-        private IWebElement objSubmitBtn => driver2.FindElement(By.XPath(SUBMITBTN));
+        private IWebElement objFirstName => objDriver2.FindElement(By.Id(FIRSTNAME));
+        private IWebElement objLastName => objDriver2.FindElement(By.Id(LASTNAME));
+        private IWebElement objCheckBoxB => objDriver2.FindElement(By.Id(CHECKBOXB));
+        private IWebElement objCheckBoxC => objDriver2.FindElement(By.Id(CHECKBOXC));
+        private IWebElement objCheckBoxPlus => objDriver2.FindElement(By.Id(CHECKBOXPLUS));
+        private IWebElement objCheckBoxP => objDriver2.FindElement(By.Id(CHECKBOXP));
+        private IWebElement objDropDown1 => objDriver2.FindElement(By.XPath(DROPDOWN1));
+        private IWebElement objDropDown2 => objDriver2.FindElement(By.XPath(DROPDOWN2));
+        private IWebElement objSubmitBtn => objDriver2.FindElement(By.XPath(SUBMITBTN));
 
-        public static readonly string url = "http://ztestqa.com/selenium/mainpage.html";
+        public static readonly string Url = "http://ztestqa.com/selenium/mainpage.html";
 
-        private readonly IWebDriver driver;
+        //private readonly IWebDriver objDriver;
 
-        public MainPage(IWebDriver driver)
+        public MainPage(IWebDriver objDriver)
         {
-            this.driver2 = driver;
+            this.objDriver2 = objDriver;
         }
 
         public void InsertFirstName(string FirstName)
@@ -111,7 +111,7 @@ namespace BaseFramework.WebPages
 
         public string ConfirmationWindow(string message)
         {
-            var window = driver2.SwitchTo().Alert();
+            var window = objDriver2.SwitchTo().Alert();
             string messageinwindow = window.Text;
             if (messageinwindow.Contains(message))
             {

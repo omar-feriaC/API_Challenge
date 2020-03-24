@@ -4,7 +4,9 @@ using BaseFramework.WebPages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Chrome;
+using SeleniumExtras.WaitHelpers;
 
 
 namespace Challenge.Test
@@ -12,9 +14,9 @@ namespace Challenge.Test
     [TestClass]
     public class Web_Tests
     {
-        public static IWebDriver driver;
+        public static IWebDriver objDriver;
         public MainPage objmainPage;
-        private static string strBrowserName = ConfigurationManager.AppSettings.Get("url");
+        private static string strUrl = ConfigurationManager.AppSettings.Get("Url");
         string expectedSuccessMessage = "Congratulations Saul! Everything was properly populated.";
         string expectedErrorMessage1 = "Please enter a first name";
         string expectedErrorMessage2 = "Please enter a last name";
@@ -25,14 +27,14 @@ namespace Challenge.Test
         [SetUp]
         public void OpenBrowser()
         {
-            driver = new ChromeDriver();
-            driver.Url = strBrowserName;
-            driver.Manage().Window.Maximize();
-            objmainPage = new MainPage(driver);
+            objDriver = new ChromeDriver();
+            objDriver.Url = strUrl;
+            objDriver.Manage().Window.Maximize();
+            objmainPage = new MainPage(objDriver);
             objmainPage.ResetCheckBoxes();
         }
 
-        [TestMethod]
+        [Test]
         public void MainPage_Correct_Selections_Positive()
         {
             objmainPage.InsertFirstName("Saul");
@@ -124,8 +126,8 @@ namespace Challenge.Test
         [TearDown]
         public void Close()
         {
-            driver.Close();
-            driver.Quit();
+            objDriver.Close();
+            objDriver.Quit();
         }
     }
 }
