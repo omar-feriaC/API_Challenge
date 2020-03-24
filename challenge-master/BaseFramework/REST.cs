@@ -6,13 +6,15 @@ using System.Net;
 using System.Net.Http;
 using System.IO;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using BaseFramework.Model;
 
 namespace BaseFramework.Rest
 {
     public class Rest
     {
         private String baseUrl;
-        private Dictionary<String,String> headers;
+        private Dictionary<String, String> headers;
 
         #region REST Constructor
         public Rest(String url)
@@ -30,7 +32,7 @@ namespace BaseFramework.Rest
         public bool AddHeader(String key, String value)
         {
             try { headers.Add(key, value); return true; }
-            catch (Exception ex){ Debug.WriteLine(ex.Message);  return false; }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); return false; }
         }
         #endregion
 
@@ -66,7 +68,13 @@ namespace BaseFramework.Rest
 
             if (!String.IsNullOrEmpty(body))
             {
-               //We should probably add our body to the request's content here
+                //We should probably add our body to the request's content here
+                data = Encoding.UTF8.GetBytes(body);
+                request.ContentLength = data.Length;
+                Stream s = request.GetRequestStream();
+                s.Write(data, 0, data.Length);
+                s.Dispose();
+                s.Close();
             }
 
             responseTimer.Start();
@@ -98,10 +106,29 @@ namespace BaseFramework.Rest
 
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
+            Stream s = null;
+            using (s = webResponse.GetResponseStream())
+            {
+                StreamReader r = new StreamReader(s);
+                string response = r.ReadToEnd();
+                output.MessageBody = response;
+            }
+            output.StatusCode = webResponse.StatusCode;
 
             return output;
         }
         #endregion
+
+        public string SerializeEmployeeData(DataReq pEmployeeData)
+        {
+            string strJson = JsonConvert.SerializeObject(pEmployeeData);
+            return strJson;
+        }
+        public EmployeeRes DeserializeEmployeeData(string pstrJson)
+        {
+            var emp = JsonConvert.DeserializeObject<EmployeeRes>(pstrJson);
+            return emp;
+        }
 
     }
 
@@ -109,7 +136,7 @@ namespace BaseFramework.Rest
     public class HTTP_RESPONSE
     {
         public HttpStatusCode StatusCode;
-        public Dictionary<String,String> Headers;
+        public Dictionary<String, String> Headers;
         public String MessageBody;
         public TimeSpan Time;
 
@@ -127,5 +154,4 @@ namespace BaseFramework.Rest
         }
     }
     #endregion
-
 }
