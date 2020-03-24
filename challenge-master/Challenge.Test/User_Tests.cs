@@ -36,6 +36,7 @@ namespace Challenge.Tests
                 Console.WriteLine(resp.MessageBody);
                 
                 //We should probably do some more assertions here on the response to check that our GET request was successful.
+                //added 03/24/2020 8:06 AM
             }
             catch(Exception ex)
             {
