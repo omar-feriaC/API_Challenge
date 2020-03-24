@@ -30,7 +30,47 @@ namespace Challenge.Test
             login.fnEnterUsername("Manuel");
             login.fnEnterUserLastname("Ku");
             login.fnPositiveTest();
-
         }
+        [Test]
+        public void NegativeFirstNameEmpty()
+        {
+            login = new MainPage(driver);
+            login.fnEnterUsername("");
+            login.fnEnterUserLastname("Ku");
+            login.fnPositiveTest();
+        }
+        [Test]
+        public void NegativeLastNameEmpty()
+        {
+            login = new MainPage(driver);
+            login.fnEnterUsername("Manuel");
+            login.fnEnterUserLastname("");
+            login.fnPositiveTest();
+        }
+        [Test]
+        public void NegativeWrongCheckBox()
+        {
+            login = new MainPage(driver);
+            login.fnEnterUsername("Manuel");
+            login.fnEnterUserLastname("Ku");
+            login.fnAddCheckBoxC();
+        }
+        [Test]
+        public void NegativeWrongFirstDropDnw()
+        {
+            login = new MainPage(driver);
+            login.fnEnterUsername("Manuel");
+            login.fnEnterUserLastname("Ku");
+            login.fnWrongFirstDropDwn();
+        }
+        [Test]
+        public void NegativeWrongSecondDropDnw()
+        {
+            login = new MainPage(driver);
+            login.fnEnterUsername("Manuel");
+            login.fnEnterUserLastname("Ku");
+            login.fnWrongSecondDropDwn();
+        }
+
     }
 }
