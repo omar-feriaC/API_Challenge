@@ -66,8 +66,12 @@ namespace BaseFramework.Rest
 
             if (!String.IsNullOrEmpty(body))
             {
-               //We should probably add our body to the request's content here
-            }
+                using (DataStream = request.GetRequestStream())
+                {
+                    DataWriter = new StreamWriter(DataStream);
+                    DataWriter.Write(body);
+                    DataWriter.Flush();
+                }
 
             responseTimer.Start();
             try
@@ -94,12 +98,16 @@ namespace BaseFramework.Rest
 
         private HTTP_RESPONSE getResponseDetails(HttpWebResponse webResponse)
         {
-            HTTP_RESPONSE output = new HTTP_RESPONSE();
+                clsHTTP_RESPONSE objOutput = new clsHTTP_RESPONSE();
+                using (DataStream = pwebResponse.GetResponseStream())
+                {
+                    DataReader = new StreamReader(DataStream);
+                    string Payload = DataReader.ReadToEnd();
+                    objOutput.StatusCode = pwebResponse.StatusCode;
+                    objOutput.strMessageBody = Payload;
+                }
 
-            //We should probably pull the Http status code and message body out of the webresposne in here
-            //and put it in the HTTP_RESPONSE object.
-
-            return output;
+                return output;
         }
         #endregion
 
