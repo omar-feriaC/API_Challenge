@@ -14,6 +14,10 @@ namespace BaseFramework.Rest
         private String baseUrl;
         private Dictionary<String,String> headers;
 
+        Stream DataStream;
+        StreamReader DataReader;
+        StreamWriter DataWriter;
+
         #region REST Constructor
         public Rest(String url)
         {
@@ -49,14 +53,14 @@ namespace BaseFramework.Rest
         #endregion
 
         #region HTTP Request Generator
-        private HTTP_RESPONSE request(String requestType, String endpoint, String body = null)
+        private HTTP_RESPONSE request(String requestType, String endpoint, String body = null) //From private to public
         {
 
             HttpWebRequest request = WebRequest.CreateHttp(baseUrl + endpoint);
             HTTP_RESPONSE response = new HTTP_RESPONSE();
             Stopwatch responseTimer = new Stopwatch();
 
-            byte[] data = null;
+            //byte[] data = null;
             request.Method = requestType;
             request.ContentType = "application/json";
             request.KeepAlive = false;
@@ -66,7 +70,13 @@ namespace BaseFramework.Rest
 
             if (!String.IsNullOrEmpty(body))
             {
-               //We should probably add our body to the request's content here
+                //We should probably add our body to the request's content here
+                using (DataStream = request.GetRequestStream())
+                {
+                    DataWriter = new StreamWriter(DataStream);
+                    DataWriter.Write(body);
+                    DataWriter.Flush();
+                }
             }
 
             responseTimer.Start();
@@ -92,12 +102,19 @@ namespace BaseFramework.Rest
             return response;
         }
 
-        private HTTP_RESPONSE getResponseDetails(HttpWebResponse webResponse)
+        private HTTP_RESPONSE getResponseDetails(HttpWebResponse webResponse) //From private to public to be reachable
         {
             HTTP_RESPONSE output = new HTTP_RESPONSE();
 
             //We should probably pull the Http status code and message body out of the webresposne in here
             //and put it in the HTTP_RESPONSE object.
+            using (DataStream = webResponse.GetResponseStream())
+            {
+                DataReader = new StreamReader(DataStream);
+                string payload = DataReader.ReadToEnd();
+                output.StatusCode = webResponse.StatusCode;
+                output.MessageBody = payload;
+            }
 
             return output;
         }

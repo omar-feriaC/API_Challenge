@@ -8,6 +8,7 @@ using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BaseFramework.Rest;
 using BaseFramework.Model;
+using Newtonsoft.Json;
 
 namespace Challenge.Tests
 {
@@ -19,11 +20,16 @@ namespace Challenge.Tests
         [TestMethod]
         public void API_GET_Test()
         {
-            String endpoint = "/api/v1/employee/2"; 
+            GetResponse response;
+            String endpoint = "/api/v1/employees"; 
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
+            response = JsonConvert.DeserializeObject<GetResponse>(resp.MessageBody);
             //We should probably do some more assertions here on the response to check that our GET request was successful.
+            Assert.AreEqual("success", response.status, $"Expected success, Received {response.status}");
+
+            Console.WriteLine(resp.MessageBody);
         }
 
 
@@ -32,11 +38,14 @@ namespace Challenge.Tests
         {
             String endpoint = "/api/v1/create/";
             User user = new User();
-            user.Name = "";
-            user.Salary = "";
-            user.Age = "";
+            user.Name = "Eduardo";
+            user.Salary = "100";
+            user.Age = "27";
+
+            string serialize = JsonConvert.SerializeObject(user);
+
             Rest rest = new Rest(baseUrl);
-            HTTP_RESPONSE resp = rest.POST(endpoint, "");
+            HTTP_RESPONSE resp = rest.POST(endpoint, serialize);
             //Need some assertions here to check the response.
         }
 

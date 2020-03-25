@@ -25,4 +25,21 @@ namespace BaseFramework.Model
     {
 
     }
+
+    //Model for Employee Get Response
+    public class GetResponse
+    {
+        public string status { get; set; }
+        public List<Employee> data { get; set; }
+    }
+
+    //Model for Employees Data
+    public class Employee
+    {
+        public string id { get; set; }
+        public string employee_name { get; set; }
+        public string employee_salary { get; set; }
+        public string employee_age { get; set; }
+        public string profile_image { get; set; }
+    }
 }
