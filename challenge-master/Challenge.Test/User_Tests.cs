@@ -8,6 +8,9 @@ using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BaseFramework.Rest;
 using BaseFramework.Model;
+using Newtonsoft.Json;
+using System.Diagnostics;
+
 
 namespace Challenge.Tests
 {
@@ -19,25 +22,62 @@ namespace Challenge.Tests
         [TestMethod]
         public void API_GET_Test()
         {
-            String endpoint = "/api/v1/employee/2"; 
+            string userID = "2";
+            String endpoint = "/api/v1/employees";
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
-            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
-            //We should probably do some more assertions here on the response to check that our GET request was successful.
+            var DataDeserialized = JsonConvert.DeserializeObject<MemberGetAllData>(resp.MessageBody);
+
+            GetData userFound = DataDeserialized.data.SingleOrDefault(items => items.id == userID);
+            try
+            {
+                Trace.WriteLine("Id: " + userFound.id);
+                Trace.WriteLine("Name: " + userFound.employee_name);
+                Trace.WriteLine("Salary: " + userFound.employee_salary);
+                Trace.WriteLine("Age: " + userFound.employee_age);
+                Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
+                Assert.IsNotNull(resp.MessageBody);
+            }
+
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+                Assert.Fail();
+            }
         }
 
 
         [TestMethod]
         public void API_POST_Test()
         {
-            String endpoint = "/api/v1/create/";
-            User user = new User();
-            user.Name = "";
-            user.Salary = "";
-            user.Age = "";
-            Rest rest = new Rest(baseUrl);
-            HTTP_RESPONSE resp = rest.POST(endpoint, "");
-            //Need some assertions here to check the response.
+            try
+            {
+                String endpoint = "/api/v1/create";
+                User user = new User();
+                user.Name = "Mauricio";
+                user.Salary = "500";
+                user.Age = "32";
+                user._id = 18;
+                Rest rest = new Rest(baseUrl);
+                string strBody = JsonConvert.SerializeObject(user);
+                HTTP_RESPONSE resp = rest.POST(endpoint, strBody);
+                Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
+
+                var DataSerialized = JsonConvert.DeserializeObject<MemberGetData>(resp.MessageBody);
+                Trace.WriteLine("Name: " + DataSerialized.data.employee_name);
+                Trace.WriteLine("Salary: " + DataSerialized.data.employee_salary);
+                Trace.WriteLine("Age: " + DataSerialized.data.employee_age);
+                Assert.IsNull(DataSerialized.data.employee_name);
+                Assert.IsNull(DataSerialized.data.employee_salary);
+                Assert.IsNull(DataSerialized.data.employee_age);
+                Assert.IsNotNull(DataSerialized.data.id);
+            }
+
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+                Assert.Fail();
+            }
         }
 
     }
