@@ -43,8 +43,8 @@ namespace Challenge.Tests
             string serlzUser = JsonConvert.SerializeObject(user);
 
             Rest rest = new Rest(baseUrl);
-            
-            //(end url, data from Post method)
+
+            //Will be sent to post method in order to have String body=not null POST(end url, data from Post method) 
             HTTP_RESPONSE resp = rest.POST(endpoint, serlzUser);
             Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
             Assert.IsNotNull(resp.MessageBody);

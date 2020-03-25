@@ -21,8 +21,19 @@ namespace Challenge.Test
             driver = new ChromeDriver();
             driver.Url = url;
             //login = new MainPage(driver);
-        }    
-        
+        }
+
+        [TearDown]
+        public void AfterTest()
+        {
+            driver.Close();
+        }
+        [OneTimeTearDown]
+        public void AfterAllTests()
+        {
+            driver.Quit();
+        }
+
         [Test]
         public void MainPage_Correct_Selections_Positive()
         {
@@ -60,6 +71,7 @@ namespace Challenge.Test
         {
             login = new MainPage(driver);
             login.fnEnterUsername("Manuel");
+            
             login.fnEnterUserLastname("Ku");
             login.fnWrongFirstDropDwn();
         }

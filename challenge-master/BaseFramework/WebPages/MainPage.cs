@@ -8,6 +8,7 @@ using OpenQA.Selenium;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using System.Threading;
+using OpenQA.Selenium.Support.UI;
 
 namespace BaseFramework.WebPages
 {
@@ -131,12 +132,14 @@ namespace BaseFramework.WebPages
             objDropDown1.Click();
             objDropDown1.SendKeys("5");
             objDropDown1.Click();
-
+            
+           
             objSubmiBtn.Click();
             try
             {
                 IAlert alert = _driver.SwitchTo().Alert();
                 Console.WriteLine(alert.Text);
+                alert.Accept();
             }
             catch (NoAlertPresentException e)
             {
@@ -172,6 +175,7 @@ namespace BaseFramework.WebPages
             {
                 IAlert alert = _driver.SwitchTo().Alert();
                 Console.WriteLine(alert.Text);
+                alert.Accept();
             }
             catch (NoAlertPresentException e)
             {
@@ -200,6 +204,7 @@ namespace BaseFramework.WebPages
             {
                 IAlert alert = _driver.SwitchTo().Alert();
                 Console.WriteLine(alert.Text);
+                alert.Accept();
             }
             catch (NoAlertPresentException e)
             {
@@ -232,6 +237,7 @@ namespace BaseFramework.WebPages
             {
                 IAlert alert = _driver.SwitchTo().Alert();
                 Console.WriteLine(alert.Text);
+                alert.Accept();
             }
             catch (NoAlertPresentException e)
             {
