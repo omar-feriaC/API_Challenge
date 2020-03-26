@@ -103,6 +103,10 @@ namespace BaseFramework.WebPages
 
             if (objCheckBoxP4CHK.Selected)
                 objCheckBoxP4CHK.Click();
+
+            objFirstNameText.Clear();
+            objLastNameText.Clear();
+
         }
 
         public void fnScenarioPositive1 (string psrtFName, string pstrLName)
@@ -110,10 +114,7 @@ namespace BaseFramework.WebPages
             string strPopUpText;
             _objDriverWait = new WebDriverWait(objdriver, new TimeSpan(0, 0, 15));
             this.fnChechBoxToFalse();
-            objFirstNameText.Clear();
-            objLastNameText.Clear();
             
-
             objFirstNameText.SendKeys(psrtFName);
             objLastNameText.SendKeys(pstrLName);
             objCheckBoxB1CHK.Click();
@@ -121,11 +122,87 @@ namespace BaseFramework.WebPages
             objCheckBoxP4CHK.Click();
 
             objDropDown1DRP.ElementAt(4).Click();
-            objSubmitBTN.Click();
-            System.Threading.Thread.Sleep(3000);
+            objSubmitBTN.Submit();
             _objDriverWait.Until(ExpectedConditions.AlertIsPresent());
-            strPopUpText = objdriver.SwitchTo().Alert().Text;
+
         }
 
+        public void fnScenarioFNameEmprty(string pstrfName)
+        {
+            _objDriverWait = new WebDriverWait(objdriver, new TimeSpan(0, 0, 15));
+            this.fnChechBoxToFalse();
+
+            objLastNameText.SendKeys(pstrfName);
+            objCheckBoxB1CHK.Click();
+            objCheckBoxPlus3CHK.Click();
+            objCheckBoxP4CHK.Click();
+            objDropDown1DRP.ElementAt(4).Click();
+            objSubmitBTN.Submit();
+            _objDriverWait.Until(ExpectedConditions.AlertIsPresent());
+
+        }
+
+        public void fnScenarioLNameEmprty(string pstrLName)
+        {
+            _objDriverWait = new WebDriverWait(objdriver, new TimeSpan(0, 0, 15));
+            this.fnChechBoxToFalse();
+
+            objFirstNameText.SendKeys(pstrLName);
+            objCheckBoxB1CHK.Click();
+            objCheckBoxPlus3CHK.Click();
+            objCheckBoxP4CHK.Click();
+            objDropDown1DRP.ElementAt(4).Click();
+            objSubmitBTN.Submit();
+            _objDriverWait.Until(ExpectedConditions.AlertIsPresent());
+
+        }
+
+        public void fnScenarioWrongCHK(string pstrFname, string pstrLName)
+        {
+            _objDriverWait = new WebDriverWait(objdriver, new TimeSpan(0, 0, 15));
+            this.fnChechBoxToFalse();
+
+            objFirstNameText.SendKeys(pstrFname);
+            objLastNameText.SendKeys(pstrLName);
+            objCheckBoxB1CHK.Click();
+            objCheckBoxC2CHK.Click();
+            objCheckBoxPlus3CHK.Click();
+            objCheckBoxP4CHK.Click();
+            objDropDown1DRP.ElementAt(4).Click();
+            objSubmitBTN.Submit();
+            _objDriverWait.Until(ExpectedConditions.AlertIsPresent());
+
+        }
+
+        public void fnScenarioWrongOptionDRP1(string pstrFname, string pstrLName)
+        {
+            _objDriverWait = new WebDriverWait(objdriver, new TimeSpan(0, 0, 15));
+            this.fnChechBoxToFalse();
+
+            objFirstNameText.SendKeys(pstrFname);
+            objLastNameText.SendKeys(pstrLName);
+            objCheckBoxB1CHK.Click();
+            objCheckBoxPlus3CHK.Click();
+            objCheckBoxP4CHK.Click();
+            objDropDown1DRP.ElementAt(3).Click();
+            objSubmitBTN.Submit();
+            _objDriverWait.Until(ExpectedConditions.AlertIsPresent());
+        }
+
+        public void fnScenarioWrongOptionDRP2(string pstrFname, string pstrLName)
+        {
+            _objDriverWait = new WebDriverWait(objdriver, new TimeSpan(0, 0, 15));
+            this.fnChechBoxToFalse();
+
+            objFirstNameText.SendKeys(pstrFname);
+            objLastNameText.SendKeys(pstrLName);
+            objCheckBoxB1CHK.Click();
+            objCheckBoxPlus3CHK.Click();
+            objCheckBoxP4CHK.Click();
+            objDropDown1DRP.ElementAt(4).Click();
+            objDropDown2DRP.ElementAt(5).Click();
+            objSubmitBTN.Submit();
+            _objDriverWait.Until(ExpectedConditions.AlertIsPresent());
+        }
     }
 }
