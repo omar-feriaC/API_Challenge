@@ -69,6 +69,7 @@
     <Compile Include="ResponseModel.cs" />
     <Compile Include="REST.cs" />
     <Compile Include="WebPages\MainPage.cs" />
+    <Compile Include="WebPages\WebPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
