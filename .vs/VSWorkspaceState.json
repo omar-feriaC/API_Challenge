@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\challenge-master",
+    "\\challenge-master\\BaseFramework",
+    "\\challenge-master\\Challenge.Test"
   ],
+  "SelectedNode": "\\challenge-master\\BaseFramework\\clsRest.cs",
   "PreviewInSolutionExplorer": false
 }

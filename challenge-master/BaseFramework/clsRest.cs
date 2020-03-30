@@ -8,20 +8,15 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using BaseFramework.Model;
-
 namespace BaseFramework.clsRest
 {
     public class clsRest
     {
         private String strbaseUrl;
-        
         private Dictionary<String,String> headers;
         Stream DataStream;
         StreamReader DataReader;
         StreamWriter DataWriter;
-
-        //HttpWebResponse HttpResponse;
-
         #region REST Constructor
         public clsRest(String pstrurl)
         {
@@ -41,61 +36,58 @@ namespace BaseFramework.clsRest
         }
         #endregion
         #region GET - Response of a GET
-        // needs the endpoint to know that to get
         public clsHTTP_RESPONSE fnGET(String pstrEndpoint)
-        {
+        {// needs the endpoint to know that to get
             return fnRequest("GET", pstrEndpoint);
         }
         #endregion
         #region POST - Response of a POST
-        // needs the endpoint and the possible body to do a post
         public clsHTTP_RESPONSE fnPOST(String pstrEndpoint, String pstrData)
-        {
+        {// needs the endpoint and the possible body to do a post
             return fnRequest("POST", pstrEndpoint, pstrData);
         }
         #endregion
-
         #region private HTTP Request Generator
-        private clsHTTP_RESPONSE fnRequest(String requestType, String endpoint, String body = null)
+        private clsHTTP_RESPONSE fnRequest(String pstrRequestType, String pstrEndpoint, String pstrBody = null)
         {
-            HttpWebRequest request = WebRequest.CreateHttp(strbaseUrl + endpoint);
-            clsHTTP_RESPONSE response = new clsHTTP_RESPONSE();
-            Stopwatch responseTimer = new Stopwatch();
-            //byte[] data = null;
-            request.Method = requestType; //POST or GET is specified
-            request.ContentType = "application/json";
-            request.KeepAlive = false;
+            HttpWebRequest objRequest = WebRequest.CreateHttp(strbaseUrl + pstrEndpoint);
+            clsHTTP_RESPONSE objResponse = new clsHTTP_RESPONSE();
+            Stopwatch objResponseTimer = new Stopwatch();
+            byte[] data = null;
+            objRequest.Method = pstrRequestType; //POST or GET is specified
+            objRequest.ContentType = "application/json";
+            objRequest.KeepAlive = false;
             foreach (KeyValuePair<String, String> kvp in headers)
-            request.Headers.Add(kvp.Key, kvp.Value);
-            if (!String.IsNullOrEmpty(body))// if no NULL do something..
+            objRequest.Headers.Add(kvp.Key, kvp.Value);
+            if (!String.IsNullOrEmpty(pstrBody))// if no NULL do something..
             {   //We should probably add our body to the request's content here
-                using (DataStream = request.GetRequestStream())
-                {
-                    DataWriter = new StreamWriter(DataStream);//We Write the Body
-                    DataWriter.Write(body);
-                    DataWriter.Flush();
-                }
+                ASCIIEncoding encoding = new ASCIIEncoding();
+                data = encoding.GetBytes(pstrBody);// Create a new string object to POST data to the Url.
+                objRequest.ContentLength = data.Length;// Set the content length of the string being posted.
+                Stream newStream = objRequest.GetRequestStream();
+                newStream.Write(data, 0, data.Length);
+                newStream.Close();// Close the Stream object.
             }
-            responseTimer.Start();
+            objResponseTimer.Start();
             //Once You sent the request(body, try something)
             try //If everything looks good, try this/Read the response
             {
-                using (HttpWebResponse webResponse = (HttpWebResponse)request.GetResponse())
-                response = fnGetResponseDetails(webResponse); //We need to deserialize the response and be able to print it
-                response.Time = responseTimer.Elapsed;
+                using (HttpWebResponse webResponse = (HttpWebResponse)objRequest.GetResponse())
+                objResponse = fnGetResponseDetails(webResponse); //We need to deserialize the response and be able to print it
+                objResponse.Time = objResponseTimer.Elapsed;
             }
             catch (WebException exception) //If there is an exeption, print in here
             {
                 if (exception.Status == WebExceptionStatus.ProtocolError)
                 {
                     using (HttpWebResponse errResponse = (HttpWebResponse)exception.Response)
-                    response = fnGetResponseDetails(errResponse);
-                    response.Time = responseTimer.Elapsed;
+                    objResponse = fnGetResponseDetails(errResponse);
+                    objResponse.Time = objResponseTimer.Elapsed;
                 }
                 else throw new Exception(exception.Message);
             }
-            responseTimer.Stop();
-            return response;
+            objResponseTimer.Stop();
+            return objResponse;
         }
         private clsHTTP_RESPONSE fnGetResponseDetails(HttpWebResponse pwebResponse)
         {
