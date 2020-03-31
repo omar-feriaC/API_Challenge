@@ -23,7 +23,9 @@ namespace Challenge.Test
             mdriver.Url = strBrowser;
             mdriver.Manage().Window.Maximize();
             objMainPage = new MainPage(mdriver);
-          
+            objMainPage.fnClearChecks();
+
+
         }
         [TestMethod]
         public void MainPage_Correct_Selections_Positive()
@@ -66,12 +68,6 @@ namespace Challenge.Test
         [TestMethod]
         public void MainPage_Negative_LastName_Empty()
         {
-            //Cleaning before test//
-            objMainPage.fnClickBCheckBox();
-            objMainPage.fnClickPlusCheckbox();
-            objMainPage.fnClickPCheckbox();
-
-            //Test//
             string expectedErrorMessage2 = "Please enter a last name";
             objMainPage.fnInputFirstName(pstrFname);
             objMainPage.fnClickBCheckBox();
@@ -86,15 +82,9 @@ namespace Challenge.Test
         [TestMethod]
         public void MainPage_Negative_WrongCheckbox_Selected()
         {
-            //Cleaning before test//
-            objMainPage.fnClickBCheckBox();
-            objMainPage.fnClickPlusCheckbox();
-            objMainPage.fnClickPCheckbox();
-
-            //Test//
             string expectedErrorMessage3 = "The checkbox selection is not quite right";
             objMainPage.fnInputFirstName(pstrFname);
-            objMainPage.fnInputFirstName("Pasos");
+            objMainPage.fnInputLastName("Pasos");
             objMainPage.fnClickBCheckBox();
             objMainPage.fnClickCCheckbox();
             objMainPage.fnClickPlusCheckbox();
@@ -109,13 +99,6 @@ namespace Challenge.Test
         [TestMethod]
         public void MainPage_Negative_WrongDropdown_SelectedinFirst()
         {
-            //Cleaning Before Test//
-            objMainPage.fnClickBCheckBox();
-            objMainPage.fnClickCCheckbox();
-            objMainPage.fnClickPlusCheckbox();
-            objMainPage.fnClickPCheckbox();
-
-            //Test//
             string expectedErrorMessage4 = "The dropdown selection is not quite right";
             objMainPage.fnInputFirstName(pstrFname);
             objMainPage.fnInputLastName("Pasos");
@@ -132,12 +115,6 @@ namespace Challenge.Test
         [TestMethod]
         public void MainPage_Negative_WrongDropdown_SelectedinSecond()
         {
-            //cleaning before test//
-            objMainPage.fnClickBCheckBox();
-            objMainPage.fnClickPlusCheckbox();
-            objMainPage.fnClickPCheckbox();
-
-            //Test//
             string expectedErrorMessage5 = "A selection was made other than the default in select list 2";
             objMainPage.fnInputFirstName(pstrFname);
             objMainPage.fnInputLastName("Pasos");
@@ -158,4 +135,7 @@ namespace Challenge.Test
             mdriver.Quit();
         }
     }
+
+      
+    
 }

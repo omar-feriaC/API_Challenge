@@ -24,11 +24,12 @@ namespace BaseFramework.WebPages
         readonly static string STRLASTNAME = "_lastName";
         readonly static string STRBCHECKBOX = "chk1";
         readonly static string STRCCHECKBOX = "chk2";
-        readonly static string STRPLUSCHECKBOX = "chk13";
-        readonly static string STRPCHECKBOX = "chk14";
+        readonly static string STRPLUSCHECKBOX = "chk3";
+        readonly static string STRPCHECKBOX = "chk4";
         readonly static string STRFIRSDROPDOWN = "//div[@name='selOpt']//select";
         readonly static string STRSECONDDROPDOWN = "//div[@name='noSel']//select";
         readonly static string STRSUBMITBUTTON = "//button[text()='Submit']";
+        readonly static string[] arrCheckBx = { STRBCHECKBOX, STRPLUSCHECKBOX, STRPLUSCHECKBOX, STRPCHECKBOX };
 
         private IWebElement objFirstName => objdriver.FindElement(By.Name(STRFIRSTNAME));
         private IWebElement objLastName => objdriver.FindElement(By.Name(STRLASTNAME));
@@ -40,7 +41,18 @@ namespace BaseFramework.WebPages
         private IWebElement objSecondDropDown => objdriver.FindElement(By.XPath(STRSECONDDROPDOWN));
         private IWebElement objSubmitBtn => objdriver.FindElement(By.XPath(STRSUBMITBUTTON));
 
+
         //Methods//
+        public void fnClearChecks()
+        {
+            for (int j = 0; j < arrCheckBx.Length; j++)
+            {
+                if (objdriver.FindElement(By.Name(arrCheckBx[j])).Selected)
+                {
+                    objdriver.FindElement(By.Name(arrCheckBx[j])).Click();
+                }
+            }
+        }
         public void fnInputFirstName(string pstrFirstName)
         {
             objFirstName.Clear();
