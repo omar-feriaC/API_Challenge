@@ -16,7 +16,6 @@ namespace BaseFramework.Rest
         private Dictionary<String, String> headers;
         Stream DataStream;
         StreamReader DataReader;
-        StreamWriter DataWriter;
         //Constructor
         #region REST Constructor
         public Rest(String url)
