@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
+using Newtonsoft.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BaseFramework.Rest;
 using BaseFramework.Model;
+using BaseFramework.Rest;
 
-namespace Challenge.Tests
+
+
+namespace Challenge.Test
 {
     [TestClass]
     public class User_Tests
@@ -19,11 +22,14 @@ namespace Challenge.Tests
         [TestMethod]
         public void API_GET_Test()
         {
-            String endpoint = "/api/v1/employee/2"; 
+            String endpoint = "/api/v1/employee/2";
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
-            Assert.AreEqual(HttpStatusCode.OK, resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
-            //We should probably do some more assertions here on the response to check that our GET request was successful.
+            Assert.AreEqual(HttpStatusCode.OK, 
+                resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
+            GetResponse response = JsonConvert.DeserializeObject<GetResponse>(resp.MessageBody);
+            Assert.AreEqual("success", response.status, $"Expected success, Received {response.status}");
+            Console.WriteLine(resp.MessageBody);
         }
 
 
@@ -31,15 +37,20 @@ namespace Challenge.Tests
         public void API_POST_Test()
         {
             String endpoint = "/api/v1/create/";
-            User user = new User();
-            user.Name = "";
-            user.Salary = "";
-            user.Age = "";
+            User user = new User
+            {
+                Name = "Alfonso",
+                Salary = "1000",
+                Age = "34"
+            };
+            
+
+            string serialize = JsonConvert.SerializeObject(user);
+
             Rest rest = new Rest(baseUrl);
-            HTTP_RESPONSE resp = rest.POST(endpoint, "");
-            //Need some assertions here to check the response.
+            HTTP_RESPONSE resp = rest.POST(endpoint, "");            
         }
 
     }
-    
+
 }
