@@ -127,12 +127,12 @@ namespace BaseFramework.WebPages
             string text = alert.Text;
             if (!text.Contains(message))
             {
-                Console.WriteLine("Message not displayed correctly");
+                Console.WriteLine("Message was not displayed correctly");
             }
 
             else
             {
-                Console.WriteLine("Message displayed correctly");
+                Console.WriteLine("Message was displayed correctly");
                 alert.Accept();
             }
 

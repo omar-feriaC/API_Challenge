@@ -109,7 +109,7 @@ namespace Challenge.Tests
         {
             try
             {
-                string expectedMessage = "The checkbox selection is not quite right";
+                string expectedMessage = "The checkbox selection is not appropiate";
                 mainPage.clearFirstName();
                 mainPage.clearLastName();
                 mainPage.enterFirstName(first_Name);
@@ -136,7 +136,7 @@ namespace Challenge.Tests
         {
             try
             {
-                string expectedMessage = "The dropdown selection is not quite right";
+                string expectedMessage = "The dropdown selection is not appropiate";
                 mainPage.clearFirstName();
                 mainPage.clearLastName();
                 mainPage.enterFirstName(first_Name);
@@ -162,7 +162,7 @@ namespace Challenge.Tests
         {
             try
             {
-                string expectedMessage = "A selection was made other than the default in select list 2";
+                string expectedMessage = "A selection was made different than default in the select list 2";
                 mainPage.clearFirstName();
                 mainPage.clearLastName();
                 mainPage.enterFirstName(first_Name);
