@@ -22,10 +22,10 @@ namespace Challenge.Test
         [TestMethod]
         public void API_GET_Test()
         {
-            String endpoint = "/api/v1/employee/2";
+            String endpoint = "/api/v1/employees";
             Rest rest = new Rest(baseUrl);
             HTTP_RESPONSE resp = rest.GET(endpoint);
-            Assert.AreEqual(HttpStatusCode.OK, 
+            Assert.AreEqual(HttpStatusCode.OK,
                 resp.StatusCode, $"Expected Status Code {HttpStatusCode.OK}, Received {resp.StatusCode}");
             GetResponse response = JsonConvert.DeserializeObject<GetResponse>(resp.MessageBody);
             Assert.AreEqual("success", response.status, $"Expected success, Received {response.status}");
@@ -43,12 +43,12 @@ namespace Challenge.Test
                 Salary = "1000",
                 Age = "34"
             };
-            
+
 
             string serialize = JsonConvert.SerializeObject(user);
 
             Rest rest = new Rest(baseUrl);
-            HTTP_RESPONSE resp = rest.POST(endpoint, "");            
+            HTTP_RESPONSE resp = rest.POST(endpoint, "");
         }
 
     }
