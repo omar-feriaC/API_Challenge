@@ -15,8 +15,7 @@ namespace BaseFramework.WebPages
     public class MainPage
 
     {
-
-        //  public static readonly string url = "http://ztestqa.com/selenium/mainpage.html";
+            
 
         private IWebDriver _driver;
 

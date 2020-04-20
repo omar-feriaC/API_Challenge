@@ -4,8 +4,8 @@ using BaseFramework.WebPages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Assert = NUnit.Framework.Assert;
+
+
 
 
 namespace Challenge.Tests
@@ -59,10 +59,10 @@ namespace Challenge.Tests
         {
             try
             {
-                string expectedMessage = "Please enter your first name";
+                string expectedMessage = "Please enter a first name";
                 mainPage.clearFirstName();
-                mainPage.enterFirstName(first_Name);
                 mainPage.clearLastName();
+                mainPage.enterLastName(last_Name);                
                 mainPage.clearButtons();
                 mainPage.clickBCheckbox();
                 mainPage.clickPlusCheckbox();
@@ -84,10 +84,10 @@ namespace Challenge.Tests
         {
             try
             {
-                string expectedMessage = "Please enter your last name";
+                string expectedMessage = "Please enter a last name";
                 mainPage.clearFirstName();
-                mainPage.clearLastName();
-                mainPage.enterLastName(last_Name);
+                mainPage.enterFirstName(first_Name);
+                mainPage.clearLastName();                
                 mainPage.clearButtons();
                 mainPage.clickBCheckbox();
                 mainPage.clickPlusCheckbox();
@@ -109,7 +109,7 @@ namespace Challenge.Tests
         {
             try
             {
-                string expectedMessage = "The checkbox selection is not appropiate";
+                string expectedMessage = "The checkbox selection is not quite right";
                 mainPage.clearFirstName();
                 mainPage.clearLastName();
                 mainPage.enterFirstName(first_Name);
@@ -136,7 +136,7 @@ namespace Challenge.Tests
         {
             try
             {
-                string expectedMessage = "The dropdown selection is not appropiate";
+                string expectedMessage = "The dropdown selection is not quite right";
                 mainPage.clearFirstName();
                 mainPage.clearLastName();
                 mainPage.enterFirstName(first_Name);
@@ -162,7 +162,7 @@ namespace Challenge.Tests
         {
             try
             {
-                string expectedMessage = "A selection was made different than default in the select list 2";
+                string expectedMessage = "A selection was made other than the default in select list 2";
                 mainPage.clearFirstName();
                 mainPage.clearLastName();
                 mainPage.enterFirstName(first_Name);
